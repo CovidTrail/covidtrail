@@ -7,13 +7,13 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
 import About from "../pages/About";
+import Header from "../components/Header";
 
-import Header from "../components/header";
 
 const Root = (props) => {
   return (
     <Router>
-        {/* <Header /> */}
+        <Header/>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
