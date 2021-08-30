@@ -2,3 +2,8 @@
 /.idea/workspace.xml
 .idea
 .env
+
+app/node_modules
+app/package-lock.json
+
+.DS_Store
