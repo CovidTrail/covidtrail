@@ -11,6 +11,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -21,6 +23,9 @@ const styles = makeStyles((theme) => ({
     background: '#2295F3'
   },
   title: {
+    marginRight: theme.spacing(2),
+  },
+  spacer: {
     flexGrow: 1
   },
 }));
@@ -38,11 +43,12 @@ const Header = (props) => {
   }
   return (
       <div className={classes.root}>
-        <AppBar className={classes.appBar} position="inherit">
+        <AppBar className={classes.appBar} position="static">
           <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              CovidTrail
-            </Typography>
+            <Button  color="inherit" href="/" className={classes.title}>
+              <Typography variant="h6">CovidTrail</Typography>
+            </Button>
+            <Box className={classes.spacer} color="inherit"/>
             <IconButton
                 aria-label="account"
                 aria-controls="menu"
@@ -67,7 +73,7 @@ const Header = (props) => {
                 open={open}
                 onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Sign in</MenuItem>
+              <MenuItem onClick={handleClose}>Login</MenuItem>
               <MenuItem onClick={handleClose}>Sign up</MenuItem>
             </Menu>
           </Toolbar>
