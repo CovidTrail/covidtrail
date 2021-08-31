@@ -14,14 +14,18 @@ import Menu from '@material-ui/core/Menu';
 
 const styles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    margin: 0
+  },
+  appBar: {
+    background: '#2295F3'
   },
   title: {
     flexGrow: 1
   },
 }));
 
-const Home = (props) => {
+const Header = (props) => {
   const classes = styles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -34,7 +38,7 @@ const Home = (props) => {
   }
   return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar className={classes.appBar} position="inherit">
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               CovidTrail
@@ -73,4 +77,4 @@ const Home = (props) => {
 }
 
 // export default Header;
-export default Home;
+export default Header;
