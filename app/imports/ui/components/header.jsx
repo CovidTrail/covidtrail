@@ -19,9 +19,6 @@ const styles = makeStyles((theme) => ({
     flexGrow: 1,
     margin: 0
   },
-  appBar: {
-    background: '#2295F3'
-  },
   title: {
     marginRight: theme.spacing(2),
   },
@@ -43,7 +40,7 @@ const Header = (props) => {
   }
   return (
       <div className={classes.root}>
-        <AppBar className={classes.appBar} position="static">
+        <AppBar position="static">
           <Toolbar>
             <Button  color="inherit" href="/" className={classes.title}>
               <Typography variant="h6">CovidTrail</Typography>
