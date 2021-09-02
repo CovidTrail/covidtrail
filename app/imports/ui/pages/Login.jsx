@@ -3,6 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Input, Button } from "@material-ui/core";
 
 const useStyles = makeStyles({
+  loginText: {
+    fontSize: "50px",
+  },
+
   container: {
     display: "flex",
     flexDirection: "column",
@@ -36,7 +40,7 @@ export default Login = () => {
 
   return (
     <div className={classes.container}>
-      <h1>Login</h1>
+      <h1 className={classes.loginText}>Login</h1>
       <Input
         className={classes.input}
         id="email"
