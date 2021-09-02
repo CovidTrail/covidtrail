@@ -15,7 +15,7 @@ const styles = makeStyles((theme) => ({
 const Footer = (props) => {
   const classes = styles();
   return (
-    <Box px={{xs: 3, sm: 10}} py={{xs: 5, sm: 10}} color="white" bgcolor="#404143">
+    <Box px={{xs: 3, sm: 10}} py={{xs: 5, sm: 7}} color="white" bgcolor="#404143">
       <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={4}>
