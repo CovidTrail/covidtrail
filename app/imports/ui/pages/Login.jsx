@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Input, Button } from "@material-ui/core";
 
@@ -38,26 +38,40 @@ const useStyles = makeStyles({
 export default Login = () => {
   const classes = useStyles();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    Meteor.loginWithPassword(email, password);
+  };
+
   return (
     <div className={classes.container}>
       <h1 className={classes.loginText}>Login</h1>
-      <Input
-        className={classes.input}
-        id="email"
-        name="email"
-        placeholder="Email"
-      ></Input>
-      <Input
-        className={classes.input}
-        id="password"
-        name="password"
-        type="password"
-        placeholder="Password"
-      ></Input>
-      <Button className={classes.button} type="submit">
-        {" "}
-        Login
-      </Button>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email"> Email address</label>
+        <Input
+          className={classes.input}
+          id="email"
+          name="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        ></Input>
+        <label htmlFor="password"> Password</label>
+        <Input
+          className={classes.input}
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        ></Input>
+        <Button className={classes.button} type="submit">
+          Login
+        </Button>
+      </form>
     </div>
   );
 };
