@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Input, Button } from "@material-ui/core";
@@ -35,9 +36,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default Login = () => {
+export default Login = ({ location, history }) => {
   const classes = useStyles();
 
+  if (Meteor.userId()) {
+    history.push("/profile");
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
