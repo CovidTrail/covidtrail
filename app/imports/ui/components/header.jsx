@@ -14,6 +14,7 @@ import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
+
 const styles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -70,8 +71,8 @@ const Header = (props) => {
                 open={open}
                 onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Login</MenuItem>
-              <MenuItem onClick={handleClose}>Sign up</MenuItem>
+              <MenuItem onClick={handleClose} >Login</MenuItem>
+              <MenuItem onClick={handleClose} >Sign up</MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>

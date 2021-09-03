@@ -39,10 +39,10 @@ const Footer = (props) => {
           <Grid item xs={12} sm={4}>
             <Box borderBottom={1}>Account</Box>
             <Box>
-              <Link color="inherit" href="/">Login</Link>
+              <Link color="inherit" href="/login">Login</Link>
             </Box>
             <Box>
-              <Link color="inherit" href="/">Sign up</Link>
+              <Link color="inherit" href="/register">Sign up</Link>
             </Box>
           </Grid>
         </Grid>
