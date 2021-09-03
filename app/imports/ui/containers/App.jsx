@@ -14,6 +14,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Checkin from "../pages/Checkin";
 
+
 const Root = (props) => {
   return (
       <Router>
