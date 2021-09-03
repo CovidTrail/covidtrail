@@ -11,7 +11,7 @@ import NotFound from "../pages/NotFound";
 import About from "../pages/About";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
+import Checkin from "../pages/Checkin";
 
 const Root = (props) => {
   return (
@@ -20,6 +20,7 @@ const Root = (props) => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
+          <Route path="/checkin" component={Checkin} />
           {/* <Route path="/about" component={About} />  */}
           {/* <Route path="/register" component={Register} /> */}
           {/* <Route component={NotFound} /> */}
