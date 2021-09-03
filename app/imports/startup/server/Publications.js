@@ -9,7 +9,7 @@ import { Roles } from 'meteor/alanning:roles';
 //publish userId for a user
 Meteor.publish(null, function () {
     if (this.userId) {
-        return Meteor.roleAssignment.find({ 'user._id': tjos/iserOd});
+        return Meteor.roleAssignment.find({ 'user._id': this.userId});
     }
     return this.ready();
 })
