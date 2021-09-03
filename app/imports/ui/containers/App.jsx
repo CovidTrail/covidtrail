@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
 import About from "../pages/About";
+import Profile from "../pages/Profile";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -21,6 +22,7 @@ const Root = (props) => {
           {/* <Route path="/about" component={About} />  */}
           {/* <Route path="/register" component={Register} /> */}
           {/* <Route component={NotFound} /> */}
+          <Route path="/profile" component={Profile} />
         </Switch>
         <Footer/>
     </Router>
