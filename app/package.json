@@ -1,9 +1,8 @@
-
 {
   "name": "app",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "meteor --settings ../config/settings.development.json",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
@@ -20,7 +19,8 @@
     "react-addons-pure-render-mixin": "^15.6.3",
     "react-dom": "^17.0.2",
     "react-router": "^5.2.1",
-    "react-router-dom": "^5.2.1"
+    "react-router-dom": "^5.2.1",
+    "simpl-schema": "^1.12.0"
   },
   "meteor": {
     "mainModule": {
