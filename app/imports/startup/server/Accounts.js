@@ -24,6 +24,4 @@ if (Meteor.users.find().count() === 0) {
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }
-} else {
-  console.log(`${Meteor.users}`);
 }
