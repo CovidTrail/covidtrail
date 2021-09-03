@@ -19,7 +19,7 @@ const Root = (props) => {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           {/* <Route path="/about" component={About} />  */}
-          {/* <Route path="/register" component={Register} /> */}
+          <Route path="/register" component={Register} />
           {/* <Route component={NotFound} /> */}
         </Switch>
         <Footer/>
