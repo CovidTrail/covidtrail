@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Input, Button } from "@material-ui/core";
 
@@ -23,39 +23,57 @@ const useStyles = makeStyles({
   input: {
     width: "100%",
     height: "50px",
-    margin: "15px 0",
+    margin: "0 0 25px 0",
+  },
+  label: {
+    fontSize: "12px",
   },
   button: {
     width: "100px",
     height: "45px",
     background: "#4350AF",
+    margin: "25px 0 25px 0",
     color: "#FFFFFF",
     "&:hover": {
       opacity: "90%",
     },
+  },
+  error: {
+    color: "#FF0000",
   },
 });
 
 export default Login = ({ location, history }) => {
   const classes = useStyles();
 
-  if (Meteor.userId()) {
-    history.push("/profile");
-  }
+  useEffect(() => {
+    if (Meteor.userId()) {
+      history.push("/profile");
+    }
+  });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    Meteor.loginWithPassword(email, password);
+    Meteor.loginWithPassword(email, password, (err) => {
+      if (err) {
+        console.log(err.reason);
+        setError(err.reason);
+      } else {
+        history.push("profile");
+      }
+    });
   };
 
   return (
     <div className={classes.container}>
       <h1 className={classes.loginText}>Login</h1>
+      {error && <span className={classes.error}>{error}</span>}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email"> Email address</label>
+        {/* <label htmlFor="email" className={classes.label}> Email address</label> */}
         <Input
           className={classes.input}
           id="email"
@@ -63,7 +81,7 @@ export default Login = ({ location, history }) => {
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         ></Input>
-        <label htmlFor="password"> Password</label>
+        {/* <label htmlFor="password" className={classes.label}> Password</label> */}
         <Input
           className={classes.input}
           id="password"
@@ -76,6 +94,13 @@ export default Login = ({ location, history }) => {
           Login
         </Button>
       </form>
+      <span>or</span>
+      <Button
+        className={classes.button}
+        onClick={(e) => history.push("/register")}
+      >
+        Sign up
+      </Button>
     </div>
   );
 };
