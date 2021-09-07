@@ -5,31 +5,46 @@ import { Link } from 'react-router-dom';
 import { Button, Typography, Grid, makeStyles, List, ListItem, Divider, ListItemText } from '@material-ui/core';
 import lime from '@material-ui/core/colors/lime';
 
+/* Create a upper level class to stylize the elements*/
 const useStyles = makeStyles({
   button: {
     justifyContent: 'center',
     alignItems: 'center'
   },
 
-  typography : {
-    align: 'center'
-  }
+  typography_primary : {
+    align: 'center',
+    color: 'primary',
+  },
+
+  typography_secondary : {
+    align: 'center',
+    color: 'secondary',
+  },
+
+  top_grid :{
+    /*Top Grid element*/
+    borderSpacing: 4,
+  },
 
 })
+
+
 /* Colors */
 const primary = lime[300];
 const textPrimary = lime['A400'];
 const accent = lime['A200'];
 
-class Home extends React.Component{
+const Home = (props) => {
 
-  render() {
-    /* Building the Main Page */
-    /* Column width max is 12. */
+  /* Building the Main Page */
+  /* Column width max is 12. */
 
-      return(
+  /*Import the styling above. */
+  const classes = useStyles();
+  return(
           <div>
-            <Grid container direction= 'row' justifyContent='center' alignItems= 'center' spacing={4}>
+            <Grid container direction= 'row' justifyContent='center' alignItems= 'center' className={classes.top_grid}>
 
               <Grid  item xs={12}>
                 <Typography align = 'center' variant= 'h2' color= 'primary'>
@@ -57,7 +72,7 @@ class Home extends React.Component{
                 </Typography>
 
               </Grid>
-              <Grid item xs = {6} spacing={4}>
+              <Grid item xs = {6} >
                 <Typography align= 'center' variant= 'h6' color= 'secondary'>
 
                   Not yet a member? Become one in 3 easy steps.
@@ -95,7 +110,7 @@ class Home extends React.Component{
 
               </Grid>
 
-              <Grid item xs = {6} spacing={4}>
+              <Grid item xs = {6} >
                 <Typography align= 'center' variant= 'h6' color= 'primary'>
                   How to do your Part to Stop the Trail
                   <br/>
@@ -133,8 +148,6 @@ class Home extends React.Component{
             </Grid>
           </div>
       );
-  }
-
-}
+  };
 
 export default Home;
