@@ -9,7 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 
 
 const styles = makeStyles((theme) => ({
@@ -29,6 +31,7 @@ const Header = (props) => {
   const classes = styles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const { currentUser, currentId } = props;
 
   const handleIconMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +39,11 @@ const Header = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   }
+
+  const handleLogout = () => {
+    Meteor.logout();
+  }
+
   return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -68,8 +76,21 @@ const Header = (props) => {
                 open={open}
                 onClose={handleClose}
             >
-              <MenuItem component = {Link} to="/Login" onClick={handleClose} >Login</MenuItem>
-              <MenuItem component = {Link} to="/Register" onClick={handleClose} >Sign up</MenuItem>
+              {
+                currentUser === '' ?
+                (
+                  <div>
+                  <MenuItem component = {Link} to="/Login" onClick={handleClose} >Login</MenuItem>
+                  <MenuItem component = {Link} to="/Register" onClick={handleClose} >Sign up</MenuItem>
+                  </div>
+                ) :
+                (
+                  <div>
+                  <MenuItem component = {Link} to="/" onClick={handleClose}>Settings</MenuItem>
+                  <MenuItem component = {Link} to="/" onClick={handleLogout}>Logout</MenuItem>
+                  </div>
+                )
+              }
             </Menu>
 
           </Toolbar>
@@ -78,5 +99,15 @@ const Header = (props) => {
   );
 }
 
+Header.propTypes = {
+  currentUser: PropTypes.string,
+  currentId: PropTypes.string,
+}
+
+const HeaderContainer = withTracker(() => ({
+  currentUser: Meteor.user() ? Meteor.user().username : '',
+  currentId: Meteor.userId(),
+}))(Header);
+
 // export default Header;
-export default Header;
+export default withRouter(HeaderContainer);
