@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import simpleSchema from 'simpleSchema';
+import SimpleSchema from 'simpleSchema';
 import { Tracker } from 'meteor/Tracker';
 
 const Checkins = new Mongo.Collection('Checkins');
