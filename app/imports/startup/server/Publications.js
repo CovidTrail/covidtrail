@@ -1,12 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-//import collections here
+import { Checkins } from '../../api/checkin/Checkin'
 
-//user level publications here
+// publish only documents for logged in user
+Meteor.publish('Checkin', function publish() {
+    if (this.userId) {
+        const username = Meteor.users.findOne(this.userId).username;
+        return Checkins.find({ user: username});
+    }
+    return this.ready();
+})
 
-//admin publications here
+//admin publications 
 
-//publish userId for a user
+//publish roles for each user
 Meteor.publish(null, function () {
     if (this.userId) {
         return Meteor.roleAssignment.find({ 'user._id': this.userId});
