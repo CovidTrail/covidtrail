@@ -70,7 +70,7 @@ const Home = (props) => {
 
               Already a member?<br/>
             </Typography>
-              <Button className={classes.button} variant='outlined' color='primary'>
+              <Button component={Link} to={"/Login"} className={classes.button} variant='outlined' color='primary'>
                 Sign In
               </Button>
           </Grid>
@@ -105,7 +105,7 @@ const Home = (props) => {
             </List>
 
             <Typography align='center'>
-              <Button variant='outlined' color='primary'>
+              <Button component={Link} to={"/Register"} variant='outlined' color='primary'>
                 Register Here
               </Button>
             </Typography>
