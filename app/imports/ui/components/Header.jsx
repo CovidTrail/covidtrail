@@ -81,7 +81,7 @@ const Header = (props) => {
                 (
                   <div>
                   <MenuItem component = {Link} to="/Login" onClick={handleClose} >Login</MenuItem>
-                  <MenuItem component = {Link} to="/Register" onClick={handleClose} >Sign up</MenuItem>
+                  <MenuItem component = {Link} to="/Register" onClick={handleClose} >Register</MenuItem>
                   </div>
                 ) :
                 (
