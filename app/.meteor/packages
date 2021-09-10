@@ -21,7 +21,7 @@ shell-server@0.5.0            # Server-side component of the `meteor shell` comm
 insecure@1.0.7                # Allow all DB writes from clients (for prototyping)
 static-html
 react-meteor-data
-accounts-base
+accounts-base@2.0.1
 alanning:roles
-accounts-password
+accounts-password@2.0.1
 aldeed:collection2
