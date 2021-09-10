@@ -1,12 +1,18 @@
 import React from "react";
+import { withTracker } from 'meteor/react-meteor-data';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import { Checkins } from "../../api/checkin/Checkin";
 
 const styles = makeStyles((theme) => ({
   container: {
@@ -22,24 +28,31 @@ const styles = makeStyles((theme) => ({
   listItem: {
     paddingBottom: "15px",
   },
-  button: {
-    margin: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'flex-start'
+  list: {
+    marginBottom: "0px",
   },
-  buttonClicked: {
-    margin: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'flex-start',
-    backgroundColor: 'grey'
+  formControl: {
+    margin: theme.spacing(2),
   },
+  submitButton: {
+    margin: theme.spacing(1, 1, 0, 0),
+  }
 }));
 
 const Checkin = (props) => {
   const classes = styles();
   const [value, setValue] = React.useState(null);
+  const [error, setError] = React.useState(false);
+  const [helperText, setHelperText] = React.useState("");
+
   const handleChange = (event) => {
     setValue(event.target.value);
+    setHelperText(" ");
+    setError(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -53,7 +66,7 @@ const Checkin = (props) => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <ul>
+          <ul className={classes.list}>
             <li>
               <Box className={classes.listItem}>
                 <b>Have you experienced any of these symptoms?</b>
@@ -85,14 +98,43 @@ const Checkin = (props) => {
           </ul>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <box>
-          <Button fullWidth variant="contained" className={classes.buttonClicked} startIcon={<CheckBoxOutlineBlankIcon/>}>No</Button>
-          <Button fullWidth variant="contained" className={classes.buttonClicked} startIcon={<CheckBoxOutlineBlankIcon/>}>Yes</Button>
-          <Button fullWidth variant="contained" className={classes.button} color="primary">Submit</Button>
-          </box>
+          <Box>
+            <form>
+              <FormControl
+                component="fieldset"
+                error={error}
+                className={classes.formControl}
+              >
+                <RadioGroup
+                  aria-label="answer"
+                  name="answer"
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="Yes"
+                    control={<Radio />}
+                    label="Yes"
+                  />
+                  <FormControlLabel value="No" control={<Radio />} label="No" />
+                </RadioGroup>
+                <FormHelperText>{helperText}</FormHelperText>
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  color="primary"
+                  className={classes.submitButton}
+                >
+                  Submit
+                </Button>
+              </FormControl>
+            </form>
+          </Box>
         </Grid>
       </Grid>
     </Container>
   );
 };
+
+
 export default Checkin;
