@@ -1,6 +1,8 @@
 import React from "react";
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
+import swal from 'sweetalert';
+import PropTypes from 'prop-types';
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -13,6 +15,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { Checkins } from "../../api/checkin/Checkin";
+import { SwipeableDrawer } from "@material-ui/core";
 
 const styles = makeStyles((theme) => ({
   container: {
@@ -44,6 +47,7 @@ const Checkin = (props) => {
   const [value, setValue] = React.useState(null);
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("");
+  const { user, userId, date } = props;
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -53,6 +57,22 @@ const Checkin = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(user);
+    if (user)
+    {
+      const status = value
+      Checkins.insert({ user, userId, date, status }),
+        (error) => {
+          if (error) {
+            swal('Error', error.message, 'error');
+          } else {
+            swal('Success', 'asdf', 'hello');
+          }
+        }
+    } else {
+      swal('Error, you must log in to submit and answer');
+      setError(true);
+    }
   };
 
   return (
@@ -99,7 +119,7 @@ const Checkin = (props) => {
         </Grid>
         <Grid item xs={12} sm={3}>
           <Box>
-            <form>
+            <form onSubmit={handleSubmit}>
               <FormControl
                 component="fieldset"
                 error={error}
@@ -136,5 +156,16 @@ const Checkin = (props) => {
   );
 };
 
+Checkin.propTypes = {
+  user: PropTypes.string,
+  userId: PropTypes.string,
+  date: PropTypes.string,
+}
 
-export default Checkin;
+const CheckinContainer = withTracker(() => ({
+  user : Meteor.user() ? Meteor.user().username: '',
+  userId : Meteor.userId(),
+  date: Date(),
+}))(Checkin);
+
+export default withRouter(CheckinContainer);
