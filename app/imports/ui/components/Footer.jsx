@@ -42,7 +42,7 @@ const Footer = (props) => {
               <Link color="inherit" href="/login">Login</Link>
             </Box>
             <Box>
-              <Link color="inherit" href="/register">Sign up</Link>
+              <Link color="inherit" href="/register">Register</Link>
             </Box>
           </Grid>
         </Grid>
