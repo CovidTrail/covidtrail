@@ -1,6 +1,11 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import Home from "../pages/Home";
 
@@ -14,23 +19,38 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Checkin from "../pages/Checkin";
 
-
 const Root = (props) => {
   return (
-      <Router>
-        <Header/>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/checkin" component={Checkin} />
-          {/* <Route path="/about" component={About} />  */}
-          <Route path="/register" component={Register} />
-          {/* <Route component={NotFound} /> */}
-          <Route path="/profile" component={Profile} />
-        </Switch>
-        <Footer/>
-      </Router>
+    <Router>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <PrivateRoute path="/checkin" component={Checkin} />
+        {/* <Route path="/about" component={About} />  */}
+        <Route path="/register" component={Register} />
+        {/* <Route component={NotFound} /> */}
+        <PrivateRoute path="/profile" component={Profile} />
+      </Switch>
+      <Footer />
+    </Router>
   );
 };
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => {
+      const isLogged = Meteor.userId() !== null;
+      return isLogged ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{ pathname: "/login", state: { from: props.location } }}
+        />
+      );
+    }}
+  />
+);
 
 export default Root;
