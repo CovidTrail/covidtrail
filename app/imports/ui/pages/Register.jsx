@@ -6,29 +6,6 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { useState, useEffect } from "react";
 
-function createUser(firstname, lastname, email, password, role) {
-  console.log(`Creating user ${email}`);
-  var userID = Accounts.createUser({
-      username: email,
-      email: email,
-      password: password,
-      profile: {
-        firstname: firstname,
-        lastname: lastname,
-        role: role
-      }
-  });
-  
-  // if (role == 'admin') {
-  //     Roles.createRole(role, { unlessExists: true });
-  //     Roles.addUsersToRoles(userID, 'admin');
-  // }
-  // else if (role == 'user') {
-  //     Roles.createRole(role, { unlessExists: true });
-  //     Roles.addUsersToRoles(userID, 'user');
-  // }
-}
-
 const useStyles = makeStyles({
     loginText: {
       fontSize: "50px",
@@ -71,10 +48,14 @@ export default Register = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+
     const handleSubmit = (e) => {
+
         e.preventDefault();
 
-        createUser(firstname, lastname, email, password, 'user');
+        Meteor.call('createAccount', firstname, lastname, email, password, 'user');
+
+        window.alert("account has been created");
         
   };
 
