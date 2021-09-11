@@ -2,18 +2,27 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 
-// function createUser(email, password, role) {
-//     console.log(`Creating user ${email}`);
-//     const userID = Accounts.createUser({
-//         username: email,
-//         email: email,
-//         password: password,
-//     });
-//     if (role === 'admin') {
-//         Roles.createRole(role, { unlessExists: true });
-//         Roles.addUsersToRoles(userID, 'admin');
-//     }
-// }
+//create functions in server to be called by client
+Meteor.methods(
+  { 
+    //create user/admin account 
+    createAccount: function (firstname, lastname, email, password, role) {
+    console.log(`Creating user ${email}`);
+    const userID = Accounts.createUser({
+        username: email,
+        email: email,
+        password: password,
+        profile: {
+          firstname: firstname,
+          lastname: lastname,
+        }
+    });
+        Roles.createRole(role, { unlessExists: true });
+        Roles.addUsersToRoles(userID, role);
+  }
+}
+);
+
 
 //startup with default user accounts (change these after first run)
 if (Meteor.users.find().count() === 0) {
