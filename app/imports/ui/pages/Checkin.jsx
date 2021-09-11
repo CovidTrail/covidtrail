@@ -47,7 +47,7 @@ const Checkin = (props) => {
   const [value, setValue] = React.useState(null);
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("");
-  const { user, userId, date } = props;
+  const { user, userId, dateTime, date, currentStatus, ready } = props;
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -60,17 +60,19 @@ const Checkin = (props) => {
     console.log(user);
     if (user)
     {
+      console.log(currentStatus);
+      currentStatus.map(x => { Checkins.remove({ _id: x._id })});
       const status = value
-      Checkins.insert({ user, userId, date, status }),
-        (error) => {
+      Checkins.insert({ user, userId, dateTime, date, status },
+                (error) => {
           if (error) {
             swal('Error', error.message, 'error');
           } else {
-            swal('Success', 'asdf', 'hello');
+            swal('Success');
           }
-        }
+        });
     } else {
-      swal('Error, you must log in to submit and answer');
+      swal('Error, you must log in to submit an answer');
       setError(true);
     }
   };
@@ -159,13 +161,24 @@ const Checkin = (props) => {
 Checkin.propTypes = {
   user: PropTypes.string,
   userId: PropTypes.string,
+  dateTime: PropTypes.string,
   date: PropTypes.string,
+  currentStatus: PropTypes.array,
+  ready: PropTypes.bool.isRequired,
 }
 
-const CheckinContainer = withTracker(() => ({
-  user : Meteor.user() ? Meteor.user().username: '',
-  userId : Meteor.userId(),
-  date: Date(),
-}))(Checkin);
+const CheckinContainer = withTracker(() => {
+  const subscription = Meteor.subscribe('Checkin');
+  const currentDateTime = new Date();
+  const currentDate = currentDateTime.getFullYear()+'/'+(currentDateTime.getMonth()+1)+'/'+currentDateTime.getDate();
+   return {
+    user: Meteor.user() ? Meteor.user().username : '',
+    userId: Meteor.userId(),
+    dateTime: Date(),
+    date: currentDate,
+    currentStatus: Meteor.user() ? Checkins.find({user: Meteor.user().username, date: currentDate}, {fields: { _id: 1 }}).fetch() : [],
+    ready: subscription.ready(),
+  }
+})(Checkin);
 
-export default withRouter(CheckinContainer);
+export default withRouter(CheckinContainer)
