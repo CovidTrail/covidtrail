@@ -64,6 +64,7 @@ export default Login = ({ location, history }) => {
         setError(err.reason);
       } else {
         history.push("profile");
+        console.log(Accounts.users);
       }
     });
   };

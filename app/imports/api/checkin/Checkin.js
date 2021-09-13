@@ -7,7 +7,8 @@ const Checkins = new Mongo.Collection('Checkins');
 const CheckinSchema = new SimpleSchema({
     user: String,
     userId: String,
-    date: Date,
+    dateTime: Date,
+    date: String,
     status: String,
 }, { tracker: Tracker });
 

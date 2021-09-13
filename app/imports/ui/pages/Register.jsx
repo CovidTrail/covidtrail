@@ -1,6 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Input, Button } from "@material-ui/core";
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
+import { useState, useEffect } from "react";
 
 const useStyles = makeStyles({
     loginText: {
@@ -38,26 +42,48 @@ const useStyles = makeStyles({
 export default Register = () => {
     const classes = useStyles();
 
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        Meteor.call('createAccount', firstname, lastname, email, password, 'user');
+
+        window.alert("account has been created");
+        
+  };
+
   return (
     <div className={classes.container}>
       <h1 className={classes.loginText}>Register</h1>
+      {error && <span className={classes.error}>{error}</span>}
+      <form onSubmit={handleSubmit}>
       <Input
         className={classes.input}
         id="firstname"
         name="firstname"
         placeholder="First Name"
+        onChange={(e) => setFirstname(e.target.value)}
       ></Input>
       <Input
         className={classes.input}
         id="lastname"
         name="lastname"
         placeholder="Last Name"
+        onChange={(e) => setLastname(e.target.value)}
       ></Input>
       <Input
         className={classes.input}
         id="email"
         name="email"
         placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
       ></Input>
       <Input
         className={classes.input}
@@ -65,11 +91,13 @@ export default Register = () => {
         name="password"
         type="password"
         placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
       ></Input>
-      <Button className={classes.button} type="submit">
+      <Button className={classes.button} type="submit" >
         {" "}
         Sign up
       </Button>
+      </form>
     </div>
   );
 };
