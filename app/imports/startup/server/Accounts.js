@@ -16,6 +16,10 @@ Meteor.methods(
           firstname: firstname,
           lastname: lastname,
         }
+    }, function(err){
+      if (err){
+        console.log(err);
+      }
     });
         Roles.createRole(role, { unlessExists: true });
         Roles.addUsersToRoles(userID, role);
