@@ -39,7 +39,11 @@ const styles = makeStyles((theme) => ({
   },
   submitButton: {
     margin: theme.spacing(1, 1, 0, 0),
-  }
+  },
+  symptoms: {
+    justifyItems: "center",
+    display: "grid",
+  },
 }));
 
 const Checkin = (props) => {
@@ -87,7 +91,7 @@ const Checkin = (props) => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.symptoms}>
           <ul className={classes.list}>
             <li>
               <Box className={classes.listItem}>
@@ -119,7 +123,7 @@ const Checkin = (props) => {
             </li>
           </ul>
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid container item xs={12} className={classes.symptoms}>
           <Box>
             <form onSubmit={handleSubmit}>
               <FormControl
