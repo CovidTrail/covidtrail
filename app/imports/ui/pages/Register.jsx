@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     },
   });
 
-export default Register = () => {
+export default Register = ({history}) => {
     const classes = useStyles();
 
     const [firstname, setFirstname] = useState("");
@@ -53,8 +53,8 @@ export default Register = () => {
 
         e.preventDefault();
         Meteor.call('createAccount', firstname, lastname, email, password, 'user');
-        window.alert("account has been created");
-        history.push("/");
+        history.push("/Login");
+        
         
   };
 
