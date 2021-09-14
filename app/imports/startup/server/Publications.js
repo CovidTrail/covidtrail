@@ -11,6 +11,11 @@ Meteor.publish('Checkin', function publish() {
     return this.ready();
 })
 
+// publish only documents for logged in user
+Meteor.publish('Status', function () {
+    return Checkins.find();
+})
+
 //admin publications 
 
 //publish roles for each user

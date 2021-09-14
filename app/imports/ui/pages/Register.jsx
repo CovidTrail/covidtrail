@@ -52,10 +52,9 @@ export default Register = () => {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-
         Meteor.call('createAccount', firstname, lastname, email, password, 'user');
-
         window.alert("account has been created");
+        history.push("/");
         
   };
 
