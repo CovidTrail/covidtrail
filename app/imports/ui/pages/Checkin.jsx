@@ -68,7 +68,11 @@ const Checkin = (props) => {
           if (error) {
             swal('Error', error.message, 'error');
           } else {
-            swal('Success');
+            swal({
+              text: 'Success!'
+            }).then(function() {
+              window.location = "/";
+            });
             console.log(Checkins.find().fetch());
           }
         });
