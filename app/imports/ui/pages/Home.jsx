@@ -37,12 +37,30 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
   },
 
+  typography_steps_primary: {
+    /* Only prop needed to center text*/
+    textAlign: 'center',
+    /* Does not pass Material UI's color. */
+    color: 'primary',
+    backgroundColor: '#DEDEDE',
+    marginTop: 10,
+  },
+
   typography_secondary: {
     /* Only prop needed to center text*/
     textAlign: 'center',
     /* Does not pass Material UI's color. */
     color: 'secondary',
     marginTop: 10,
+  },
+
+  typography_steps_secondary: {
+    /* Only prop needed to center text*/
+    textAlign: 'center',
+    /* Does not pass Material UI's color. */
+    color: 'secondary',
+    backgroundColor: '#DEDEDE',
+    margin: 10,
   },
 
   grid: {
@@ -56,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 15,
     textAlign: 'center',
 
-  }
+  },
 
 }));
 
@@ -137,12 +155,12 @@ const Home = (props) => {
           
           )}
 
+          {currentUser === "" ? (
           <Grid container>
             <Grid item xs={6}>
-              <Typography className={classes.typography_secondary} variant='h6' color='secondary'>
+              <Typography className={classes.typography_steps_secondary} variant='h6' color='secondary'>
                 Not yet a member? Become one in 3 easy steps.
               </Typography>
-
               <List>
                 <ListItem>
                   <ListItemText>
@@ -159,57 +177,77 @@ const Home = (props) => {
                     3.) Click Register
                   </ListItemText>
                 </ListItem>
-
                 <ListItem>
                   <ListItemText>
                     Done!
                   </ListItemText>
                 </ListItem>
               </List>
-
               <Box className={classes.box}>
                 <Button component={Link} to={"/Register"} className={classes.button} variant='outlined' color='primary'>
                   Register Here
                 </Button>
               </Box>
-
             </Grid>
-            <Grid item xs={6}>
-              <Typography className={classes.typography_primary} variant='h6' color='primary'>
-                How to do your Part to Stop the Trail
-              </Typography>
-
-              <List>
-                <ListItem>
-                  <ListItemText>
-                    1.) Login Everyday
-                  </ListItemText>
-                </ListItem>
-
-                <ListItem>
-                  <ListItemText>
-                    2.) Track your Symptoms
-                  </ListItemText>
-                </ListItem>
-
-                <ListItem>
-                  <ListItemText>
-                    3.) Stay home when you are feeling Sick
-                  </ListItemText>
-                </ListItem>
-
-                <ListItem>
-                  <ListItemText>
-                    4.) Get Vaccinated if you are able
-                  </ListItemText>
-                </ListItem>
-              </List>
-
+              <Grid item xs={6}>
+                <Typography className={classes.typography_steps_primary} variant='h6' color='primary'>
+                  How to do your Part to Stop the Trail
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemText>
+                      1.) Login Everyday
+                    </ListItemText>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText>
+                      2.) Track your Symptoms
+                    </ListItemText>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText>
+                      3.) Stay home when you are feeling Sick
+                    </ListItemText>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText>
+                      4.) Get Vaccinated if you are able
+                    </ListItemText>
+                  </ListItem>
+                </List>
+              </Grid>
             </Grid>
-
-          </Grid>
-
-
+            ) : (
+            <Grid container className={classes.grid}>
+              <Grid item xs={6}>
+                <Typography className={classes.typography_steps_primary} variant='h6' color='primary'>
+                  How to do your Part to Stop the Trail
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemText>
+                      1.) Login Everyday
+                    </ListItemText>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText>
+                      2.) Track your Symptoms
+                    </ListItemText>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText>
+                      3.) Stay home when you are feeling Sick
+                    </ListItemText>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText>
+                      4.) Get Vaccinated if you are able
+                    </ListItemText>
+                  </ListItem>
+                </List>
+              </Grid>
+            </Grid>
+            )}
         </Grid>
       </Container>
   );
