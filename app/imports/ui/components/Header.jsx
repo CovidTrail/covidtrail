@@ -90,8 +90,8 @@ const Header = (props) => {
               </div>
             ) : (
               <div>
-                <MenuItem component={Link} to="/" onClick={handleClose}>
-                  Settings
+                <MenuItem component={Link} to="/Profile" onClick={handleClose}>
+                  Profile
                 </MenuItem>
                 <MenuItem component={Link} to="/" onClick={handleLogout}>
                   Logout
