@@ -62,13 +62,14 @@ const Checkin = (props) => {
     {
       console.log(currentStatus);
       currentStatus.map(x => { Checkins.remove({ _id: x._id })});
-      const status = value
+      const status = value;
       Checkins.insert({ user, userId, dateTime, date, status },
                 (error) => {
           if (error) {
             swal('Error', error.message, 'error');
           } else {
             swal('Success');
+            console.log(Checkins.find().fetch());
           }
         });
     } else {

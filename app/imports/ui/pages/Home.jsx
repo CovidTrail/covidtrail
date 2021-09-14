@@ -1,12 +1,23 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import { Meteor } from "meteor/meteor";
-import { Link } from 'react-router-dom';
-import { Button, Typography, Grid, List, ListItem, ListItemText, Container, Box } from '@material-ui/core';
+import { Link, withRouter } from 'react-router-dom';
+import { Button, Typography, Grid, List, ListItem, ListItemText, ListItemAvatar, Container, Box, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
+import AssignmentTurnedInOutlined from '@material-ui/icons/AssignmentTurnedInOutlined';
+import { Checkins } from "../../api/checkin/Checkin";
+import { withTracker } from "meteor/react-meteor-data";
+import PropTypes from "prop-types";
 /* Create a upper level class to stylize the elements*/
 const useStyles = makeStyles((theme) => ({
+  list: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: '#f1edee',
+    marginTop: 15,
+    marginBottom: 15,
+    textAlign: 'center',
+  },
   container: {
     maxWidth: 'lg',
     display: 'flex',
@@ -49,13 +60,28 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+Meteor.subscribe("Status");
+
 const Home = (props) => {
 
   /* Building the Main Page */
   /* Column width max is 12. */
-
   /*Import the styling above. */
-  const classes = useStyles();
+ const classes = useStyles();
+ const {currentUser, currentStatus} = props;
+
+  if (currentUser) {
+    //print array of object
+    var status = currentStatus.map((item) => item.status);
+    console.log(status[0]);  
+
+    if (status[0] == "No"){
+      var status_text = "Approved";
+    }
+    else if (status[0] == "Yes"){
+      var status_text = "Declined"
+    }
+    }
 
   return (
       <Container className={classes.container}>
@@ -74,6 +100,7 @@ const Home = (props) => {
 
           </Grid>
 
+          {currentUser === "" ? (
           <Grid item className={classes.grid} xs={12}>
             <Typography className={classes.typography_primary} variant='h6' color='primary'>
 
@@ -85,7 +112,30 @@ const Home = (props) => {
               </Button>
             </Box>
           </Grid>
-
+          ) : (
+            
+            <List className={classes.list}>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  {/* No - healthy, free to visit , yes - sick, don't come */}
+                  {status[0] === 'No' ? (
+                  <AssignmentTurnedInOutlined style={{ color: 'green' }}/> ) : (<AssignmentTurnedInOutlined style={{ color: 'red' }}/>)}
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={"COVID Status: " + status_text} secondary={currentDate} />
+               <Button component={Link} to={"/Checkin"} className={classes.button} variant='outlined' color='primary'>
+                Update
+               </Button>                   
+            </ListItem>
+            {status[0] === 'No' ? (
+               <p> You're welcome to visit.</p>
+              ):(
+              <p> It is recommended that you stay home until the next check in.</p>
+              )}  
+          </List>
+          
+          )}
 
           <Grid container>
             <Grid item xs={6}>
@@ -165,4 +215,17 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+Home.propTypes = {
+  currentUser: PropTypes.string,
+  currentStatus: PropTypes.array,
+};
+
+const currentDateTime = new Date();
+const currentDate = currentDateTime.getFullYear()+'/'+(currentDateTime.getMonth()+1)+'/'+currentDateTime.getDate();
+const HeaderContainer = withTracker(() => ({
+  currentUser: Meteor.user() ? Meteor.user().username : "",
+  currentStatus: Meteor.user() ? Checkins.find({user: Meteor.user().username, date: currentDate}, {fields: { status: 1 }}).fetch() : []
+
+}))(Home);
+
+export default withRouter(HeaderContainer);
