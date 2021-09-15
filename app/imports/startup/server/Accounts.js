@@ -4,8 +4,8 @@ import { Roles } from 'meteor/alanning:roles';
 
 //create functions in server to be called by client
 Meteor.methods(
-  { 
-    //create user/admin account 
+  {
+    //create user/admin account
     createAccount: function (firstname, lastname, email, password, role) {
     console.log(`Creating user ${email}`);
     const userID = Accounts.createUser({
@@ -29,7 +29,7 @@ Meteor.methods(
 
 
 //startup with default user accounts (change these after first run)
-if (Meteor.users.find().count() === 0) {
+/*if (Meteor.users.find().count() === 0) {
   console.log('No accounts found');
   if (Meteor.settings.defaultAccounts) {
     console.log('Starting application with default users');
@@ -38,4 +38,4 @@ if (Meteor.users.find().count() === 0) {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }
 }
-
+*/
