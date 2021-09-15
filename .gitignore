@@ -4,6 +4,7 @@
 .env
 
 .vscode
+settings.json
 
 app/node_modules
 app/package-lock.json
