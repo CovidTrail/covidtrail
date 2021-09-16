@@ -4,6 +4,8 @@
 .env
 
 .vscode
+settings.json
+settings.production.json
 
 app/node_modules
 app/package-lock.json
