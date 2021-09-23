@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import { Checkins } from '../../api/checkin/Checkin'
+import { Checkins } from '../../api/checkin/Checkin';
+import { Vaccines } from '../../api/vaccine/Vaccine';
 
 // publish only documents for logged in user
 Meteor.publish('Checkin', function publish() {
@@ -15,6 +16,7 @@ Meteor.publish('Checkin', function publish() {
 Meteor.publish('Status', function () {
     return Checkins.find();
 })
+
 
 //admin publications 
 
