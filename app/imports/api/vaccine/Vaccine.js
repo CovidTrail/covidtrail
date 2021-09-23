@@ -6,7 +6,7 @@ const Vaccines = new Mongo.Collection('Vaccines');
 
 const VaccineSchema = new SimpleSchema({
     userId: String,
-    firstNameame: String,
+    firstName: String,
     lastName: String,
     vaccineName: String,
     lotNum1: String,
