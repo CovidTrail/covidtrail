@@ -1,25 +1,19 @@
 import React from "react";
-import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
+
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Typography,
   Grid,
-  List,
-  ListItem,
-  ListItemText,
   Container,
   Box,
-  TextField,
-  Menu,
   MenuItem,
   InputLabel,
   Select,
   FormControl
 } from '@material-ui/core';
 import { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+
 
 import SimpleSchema from 'simpl-schema';
 
@@ -59,18 +53,20 @@ const useStyles = makeStyles({
     margin: '1em 0 1em 0',
   },
   formControl: {
-    //minWidth: 200,
-    textAlign: 'center',
-    justifyContent: 'center',
-    display: 'flex',
-    flexDirection: "column",
-    maxWidth: 200,
-    paddingLeft: 100,
+    minWidth: 200,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   inputLabel: {
+    //textAlign: 'center',
+    //textAlign: 'center',
+    //justifyContent: 'center',
+    //paddingLeft: 150,
+
+  },
+  box: {
     textAlign: 'center',
     justifyContent: 'center',
-    paddingLeft: 150,
   }
 });
 
@@ -98,25 +94,22 @@ const Vaccination = (prop) => {
           </Grid>
 
           <Grid item xs={12} className={classes.grid}>
-            <FormControl className={classes.formControl}>
-              <InputLabel className={classes.inputLabel}>Type</InputLabel>
-              <Select onChange={handleChange}>
-                <MenuItem value={"Pzifer"}>Pfizer</MenuItem>
-                <MenuItem value={"Moderna"}>Moderna</MenuItem>
-                <MenuItem value={"Johnson & Johnson"}>Johnson & Johnson</MenuItem>
-              </Select>
-            </FormControl>
+            <Box className={classes.box}>
+              <FormControl className={classes.formControl}>
+                <InputLabel className={classes.inputLabel}>Type</InputLabel>
+                <Select onChange={handleChange} defaultValue={""}>
+                  <MenuItem value={"Pzifer"}>Pfizer</MenuItem>
+                  <MenuItem value={"Moderna"}>Moderna</MenuItem>
+                  <MenuItem value={"Johnson & Johnson"}>Johnson & Johnson</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
           </Grid>
 
           <form onSubmit={handleSubmit}>
             {value === 'Johnson & Johnson' ? (
                     <Grid>
-                      <Grid item xs={12} className={classes.grid}>
-                        <Typography className={classes.textContent}>Type</Typography>
-                        <input className={classes.input} id="" name="type" type="text"
-                               placeholder="Pfizer/Moderna/etc"></input>
 
-                      </Grid>
                       <Grid item xs={4} className={classes.grid}>
                         <Typography className={classes.textContent}>Lot Numb</Typography>
                         <input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123"></input>
@@ -137,12 +130,7 @@ const Vaccination = (prop) => {
 
                 ) :
                 <Grid>
-                  <Grid item xs={12} className={classes.grid}>
-                    <Typography className={classes.textContent}>Type</Typography>
-                    <input className={classes.input} id="" name="type" type="text"
-                           placeholder="Pfizer/Moderna/etc"></input>
 
-                  </Grid>
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>Lot Numb</Typography>
                     <input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123"></input>
@@ -178,7 +166,6 @@ const Vaccination = (prop) => {
                   </Grid>
                 </Grid>
             }
-
 
             <Grid item xs={12}>
               <Button type="submit" variant="contained" color="primary" className={classes.button}>Submit</Button>
