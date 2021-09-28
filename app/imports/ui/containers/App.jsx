@@ -18,6 +18,7 @@ import Profile from "../pages/Profile";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Checkin from "../pages/Checkin";
+import Vaccination from '../pages/Vaccination';
 
 const Root = (props) => {
   return (
@@ -31,6 +32,7 @@ const Root = (props) => {
         <Route path="/register" component={Register} />
         {/* <Route component={NotFound} /> */}
         <PrivateRoute path="/profile" component={Profile} />
+        <PrivateRoute path="/Vaccination" component={Vaccination} />
       </Switch>
       <Footer />
     </Router>
