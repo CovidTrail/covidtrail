@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   container: {
     maxWidth: 'lg',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     marginTop: '3em',
     marginBottom: '3em',
   },
@@ -78,33 +78,53 @@ const Vaccination = (prop) => {
             <Grid>
               <Grid item xs={12} className={classes.grid}>
                 <Typography className={classes.textContent}>Type</Typography>
-                <input className={classes.input} id="" name="type" type="text" placeholder="Pfizer"></input>
-                <Typography className={classes.textContent}>Lot Number</Typography>
+                <input className={classes.input} id="" name="type" type="text" placeholder="Pfizer/Moderna/etc"></input>
+
+              </Grid>
+              <Grid item xs={4} className={classes.grid}>
+                <Typography className={classes.textContent}>Lot Numb</Typography>
                 <input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123"></input>
+
+              </Grid>
+              <Grid item xs={4}className={classes.grid}>
                 <Typography className={classes.textContent}>Date</Typography>
                 <input className={classes.input} id="" name="type" type="date" placeholder=""></input>
+
+              </Grid>
+
+              <Grid item xs={4} className={classes.grid}>
                 <Typography className={classes.textContent}>Location</Typography>
-                <input className={classes.input} id="" name="location" type="location" placeholder="777 Ward Aveune"></input>
+                <input className={classes.input} id="" name="location" type="location"
+                       placeholder="777 Ward Aveune"></input>
               </Grid>
-              <Grid item xs={12} className={classes.grid}>
-                <Typography className={classes.textContent}>Last Name</Typography>
-                <input className={classes.input} id="lastName" name="lastName" type="text"
-                       placeholder="Last Name"></input>
+
+              <Grid item xs={4} className={classes.grid}>
+                <Typography className={classes.textContent}>Lot Numb</Typography>
+                <input className={classes.input} id="" name="lotnumber" type="text" placeholder="XX0123"></input>
+
               </Grid>
+              <Grid item xs={4}className={classes.grid}>
+                <Typography className={classes.textContent}>Date</Typography>
+                <input className={classes.input} id="" name="type" type="date" placeholder=""></input>
+
+              </Grid>
+
+              <Grid item xs={4} className={classes.grid}>
+                <Typography className={classes.textContent}>Location</Typography>
+                <input className={classes.input} id="" name="location" type="location"
+                       placeholder="777 Ward Aveune"></input>
+              </Grid>
+
+
               <Grid item xs={12}>
-                <Typography className={classes.textContent}>Email</Typography>
-                <input className={classes.input} id="email" name="email" type="email" placeholder="Email"></input>
-              </Grid>
-              <Grid item xs={12}>
-                <Button className={classes.button} href="/">Back</Button>
-                <Button type="submit" variant="contained" color="primary" className={classes.button}>Update</Button>
+                <Button type="submit" variant="contained" color="primary" className={classes.button}>Submit</Button>
               </Grid>
             </Grid>
           </form>
         </Grid>
       </Container>
-  )
-      ;
+  );
+
 };
 
 export default Vaccination;
