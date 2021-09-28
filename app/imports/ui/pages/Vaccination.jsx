@@ -15,16 +15,19 @@ import {
   Menu,
   MenuItem,
   InputLabel,
-  Select
+  Select,
+  FormControl
 } from '@material-ui/core';
+import { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
+
 import SimpleSchema from 'simpl-schema';
 
 const useStyles = makeStyles({
   container: {
     maxWidth: 'lg',
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginTop: '3em',
     marginBottom: '3em',
   },
@@ -55,13 +58,32 @@ const useStyles = makeStyles({
   button: {
     margin: '1em 0 1em 0',
   },
+  formControl: {
+    //minWidth: 200,
+    textAlign: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: "column",
+    maxWidth: 200,
+    paddingLeft: 100,
+  },
+  inputLabel: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    paddingLeft: 150,
+  }
 });
 
 const Vaccination = (prop) => {
   const classes = useStyles();
+
   const handleSubmit = (event) => {
     event.preventDefault();
   }
+
+  const [value, setValue] = useState("Pzifer");
+  const handleChange = e => setValue(e.target.value);
+
   const schema = new SimpleSchema({
     // const
   })
@@ -74,52 +96,94 @@ const Vaccination = (prop) => {
               Vaccination Information
             </Typography>
           </Grid>
+
+          <Grid item xs={12} className={classes.grid}>
+            <FormControl className={classes.formControl}>
+              <InputLabel className={classes.inputLabel}>Type</InputLabel>
+              <Select onChange={handleChange}>
+                <MenuItem value={"Pzifer"}>Pfizer</MenuItem>
+                <MenuItem value={"Moderna"}>Moderna</MenuItem>
+                <MenuItem value={"Johnson & Johnson"}>Johnson & Johnson</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+
           <form onSubmit={handleSubmit}>
-            <Grid>
-              <Grid item xs={12} className={classes.grid}>
-                <Typography className={classes.textContent}>Type</Typography>
-                <input className={classes.input} id="" name="type" type="text" placeholder="Pfizer/Moderna/etc"></input>
+            {value === 'Johnson & Johnson' ? (
+                    <Grid>
+                      <Grid item xs={12} className={classes.grid}>
+                        <Typography className={classes.textContent}>Type</Typography>
+                        <input className={classes.input} id="" name="type" type="text"
+                               placeholder="Pfizer/Moderna/etc"></input>
 
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Lot Numb</Typography>
-                <input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123"></input>
+                      </Grid>
+                      <Grid item xs={4} className={classes.grid}>
+                        <Typography className={classes.textContent}>Lot Numb</Typography>
+                        <input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123"></input>
 
-              </Grid>
-              <Grid item xs={4}className={classes.grid}>
-                <Typography className={classes.textContent}>Date</Typography>
-                <input className={classes.input} id="" name="type" type="date" placeholder=""></input>
+                      </Grid>
+                      <Grid item xs={4} className={classes.grid}>
+                        <Typography className={classes.textContent}>Date</Typography>
+                        <input className={classes.input} id="" name="date" type="date" placeholder=""></input>
 
-              </Grid>
+                      </Grid>
 
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Location</Typography>
-                <input className={classes.input} id="" name="location" type="location"
-                       placeholder="777 Ward Aveune"></input>
-              </Grid>
+                      <Grid item xs={4} className={classes.grid}>
+                        <Typography className={classes.textContent}>Location</Typography>
+                        <input className={classes.input} id="" name="location" type="location"
+                               placeholder="777 Ward Aveune"></input>
+                      </Grid>
+                    </Grid>
 
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Lot Numb</Typography>
-                <input className={classes.input} id="" name="lotnumber" type="text" placeholder="XX0123"></input>
+                ) :
+                <Grid>
+                  <Grid item xs={12} className={classes.grid}>
+                    <Typography className={classes.textContent}>Type</Typography>
+                    <input className={classes.input} id="" name="type" type="text"
+                           placeholder="Pfizer/Moderna/etc"></input>
 
-              </Grid>
-              <Grid item xs={4}className={classes.grid}>
-                <Typography className={classes.textContent}>Date</Typography>
-                <input className={classes.input} id="" name="type" type="date" placeholder=""></input>
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Lot Numb</Typography>
+                    <input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123"></input>
 
-              </Grid>
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Date</Typography>
+                    <input className={classes.input} id="" name="date" type="date" placeholder=""></input>
 
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Location</Typography>
-                <input className={classes.input} id="" name="location" type="location"
-                       placeholder="777 Ward Aveune"></input>
-              </Grid>
+                  </Grid>
+
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Location</Typography>
+                    <input className={classes.input} id="" name="location" type="location"
+                           placeholder="777 Ward Aveune"></input>
+                  </Grid>
+
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Lot Numb</Typography>
+                    <input className={classes.input} id="" name="lotnumber" type="text" placeholder="XX0123"></input>
+
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Date</Typography>
+                    <input className={classes.input} id="" name="type" type="date" placeholder=""></input>
+
+                  </Grid>
+
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Location</Typography>
+                    <input className={classes.input} id="" name="location" type="location"
+                           placeholder="777 Ward Aveune"></input>
+                  </Grid>
+                </Grid>
+            }
 
 
-              <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" className={classes.button}>Submit</Button>
-              </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="contained" color="primary" className={classes.button}>Submit</Button>
             </Grid>
+
           </form>
         </Grid>
       </Container>
