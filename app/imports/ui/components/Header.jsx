@@ -54,6 +54,9 @@ const Header = (props) => {
             <Button color="inherit" href="/Checkin">
               <Typography variant="h6">Checkin</Typography>
             </Button>
+            <Button color="inherit" href="/vaccination">
+              <Typography variant="h6">Vaccination</Typography>
+            </Button>
           </Box>
           <IconButton
             aria-label="account"
