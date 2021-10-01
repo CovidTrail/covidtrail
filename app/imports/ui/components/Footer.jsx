@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-
+import GitHubIcon from '@material-ui/icons/GitHub';
 const styles = makeStyles((theme) => ({
   root: {
     background: '#404143'
@@ -15,37 +15,16 @@ const styles = makeStyles((theme) => ({
 const Footer = (props) => {
   const classes = styles();
   return (
-    <Box px={{xs: 3, sm: 10}} py={{xs: 5, sm: 7}} color="white" bgcolor="#404143">
-      <Container maxWidth="lg">
-        <Grid container spacing={5}>
-          <Grid item xs={12} sm={4}>
-            <Box borderBottom={1}>Team Members</Box>
-            <Box>
-              <Typography>Clyde Felix</Typography>
-              <Typography>Jake Imanaka</Typography>
-              <Typography>Patrick McCrindle</Typography>
-              <Typography>Justin Wong</Typography>
-              <Typography>Tsz Wong</Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Box borderBottom={1}>Temp</Box>
-            <Box>
-              <Typography>
-                temp text
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Box borderBottom={1}>Account</Box>
-            <Box>
-              <Link color="inherit" href="/login">Login</Link>
-            </Box>
-            <Box>
-              <Link color="inherit" href="/register">Register</Link>
-            </Box>
-          </Grid>
-        </Grid>
+    <Box px={{xs: 3 , sm: 10}} py={{xs: 5}} color="white" bgcolor="#404143">
+      <Container maxWidth="lg">       
+      <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', textAlign: 'center'}}>
+        <Link color="inherit" href="/Login">Login</Link>
+        <Link color="inherit" href="/register">Register</Link>
+        <Link color="inherit" href="/profile">Profile</Link>
+       </Box>
+       <Box sx={{textAlign:'center'}} py={{xs:3}}>
+       <Link color="inherit" href="https://covidtrail.github.io/"><GitHubIcon></GitHubIcon></Link>
+       </Box>
       </Container>
     </Box>
   );
