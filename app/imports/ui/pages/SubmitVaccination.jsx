@@ -173,7 +173,7 @@ const SubmitVaccination = (props) => {
                   className={classes.input}
                   id="date1"
                   name="date1"
-                  type="date1"
+                  type="date"
                   placeholder="MM/DD/YYYY"
                   onChange={(e) => setDate1(e.target.value)}
                 ></Input>
@@ -214,7 +214,7 @@ const SubmitVaccination = (props) => {
                   className={classes.input}
                   id="date1"
                   name="date1"
-                  type="date1"
+                  type="date"
                   placeholder="MM/DD/YYYY"
                   onChange={(e) => setDate1(e.target.value)}
                 ></Input>
@@ -253,7 +253,7 @@ const SubmitVaccination = (props) => {
                   className={classes.input}
                   id="date2"
                   name="date2"
-                  type="date2"
+                  type="date"
                   placeholder="MM/DD/YYYY"
                   onChange={(e) => setDate2(e.target.value)}
                 ></Input>
