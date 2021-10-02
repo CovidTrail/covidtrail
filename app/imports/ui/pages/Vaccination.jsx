@@ -42,9 +42,23 @@ const vaccStyle = makeStyles({
     margin: '0 0 1em 0',
   },
   button: {
-    margin: '1em 0 1em 0',
+    "&:hover": {
+      backgroundColor: '#3f51b6',
+    },
+    margin: '1em 1em 1em 0em',
     borderRadius: '10px',
     backgroundColor: '#3f51b5',
+    color: 'White',
+
+  },
+  submitButton: {
+    "&:hover": {
+      backgroundColor: '#3f51b6',
+    },
+    margin: '1em 0 1em 0',
+    fontSize: '2em',
+    backgroundColor: '#3f51b5',
+    color: 'White',
   },
   vaccStatus: {
     boxShadow: '0px 0px 10px 0px',
@@ -113,7 +127,7 @@ const Vaccination = (props) => {
           </Grid>
         </Grid>
         ) : (
-            <Button className={classes.button} href="/SubmitVaccination">Submit Vaccination</Button>
+            <Button className={classes.submitButton} href="/SubmitVaccination">Submit Vaccination</Button>
         )}
       </Container>
 );
