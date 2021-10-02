@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Vaccines } from '../../api/vaccine/Vaccine';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -13,7 +13,9 @@ import {
   FormControl
 } from '@material-ui/core';
 import { useState } from "react";
-
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import SimpleSchema from 'simpl-schema';
 
@@ -70,8 +72,16 @@ const useStyles = makeStyles({
   }
 });
 
-const Vaccination = (prop) => {
+const Vaccination = (props) => {
   const classes = useStyles();
+  const [vaccineName, setVaccineName] = React.useState("");
+  const [lotNum1, setLotNum1] = React.useState("");
+  const [date1, setDate1] = React.useState("");
+  const [location1, setLocation1] = React.useState("");
+  const [lotNum2, setLotNum2] = React.useState("");
+  const [date2, setDate2] = React.useState("");
+  const [location2, setLocation2] = React.useState("");
+  const { user, userId, dateOfSubmission } = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -178,4 +188,18 @@ const Vaccination = (prop) => {
 
 };
 
-export default Vaccination;
+Vaccination.propTypes = {
+  user: PropTypes.string,
+  userId: PropTypes.string,
+  dateOfSubmission: PropTypes.string,
+}
+
+const VaccinationContainer = withTracker(() => {
+  return {
+    user: Meteor.user() ? Meteor.user().username : '',
+    userId: Meteor.userId(),
+    dateOfSubmission: Date(),
+  }
+})(Vaccination);
+
+export default withRouter(VaccinationContainer);

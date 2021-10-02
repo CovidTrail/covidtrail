@@ -9,8 +9,11 @@ const VaccineSchema = new SimpleSchema({
     vaccineName: String,
     lotNum1: String,
     date1: String,
+    location1: String,
     lotNum2: String,
     date2: String,
+    location2: String,
+    dateOfSubmission: Date,
 }, { tracker : Tracker });
 
 Vaccines.attachSchema(VaccineSchema);
