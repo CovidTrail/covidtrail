@@ -12,6 +12,14 @@ Meteor.publish('Checkin', function publish() {
     return this.ready();
 })
 
+Meteor.publish('Vaccine', function publish() {
+    if (this.userId) {
+        return Vaccines.find({ userId: this.userId})
+    }
+    return this.ready();
+})
+
+
 // publish only documents for logged in user
 Meteor.publish('Status', function () {
     return Checkins.find();

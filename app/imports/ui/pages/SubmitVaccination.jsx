@@ -74,29 +74,38 @@ const useStyles = makeStyles({
   }
 });
 
-const EditVaccination = (props) => {
+const SubmitVaccination = (props) => {
   const classes = useStyles();
-  const [vaccineName, setVaccineName] = React.useState("Pzifer");
+  const [vaccineName, setVaccineName] = React.useState("");
   const [lotNum1, setLotNum1] = React.useState("");
   const [date1, setDate1] = React.useState("");
   const [location1, setLocation1] = React.useState("");
   const [lotNum2, setLotNum2] = React.useState("NA");
   const [date2, setDate2] = React.useState("NA");
   const [location2, setLocation2] = React.useState("NA");
-  const { user, userId, dateOfSubmission } = props;
-  const [value, setValue] = useState("Pzifer");
-  const handleChange = e => setValue(e.target.value);
+  const { user, userId, dateOfSubmission, currentVaccine, ready } = props;
+  const handleChange = e => {
+    setVaccineName(e.target.value);
+    console.log(vaccineName);
+  }
 
   const handleSubmit = (event) => {
+    
     event.preventDefault();
-    setVaccineName(value);
+    console.log(vaccineName);
+    currentVaccine.map(x => { Vaccines.remove({ _id: x._id })});
+
     Vaccines.insert({ userId, vaccineName, lotNum1, date1, location1, lotNum2, date2, location2, dateOfSubmission },
         (error) => {
           if(error) {
-            swal('Error', error.message, 'error');
+            swal('Error', error.message, 'error').then(function() {
+              window.location = "/submitvaccination"
+            });
           } else {
             swal({
               text: 'Success!'
+            }).then(function() {
+              window.location = "/vaccination"
             });
           }
         });
@@ -119,7 +128,7 @@ const EditVaccination = (props) => {
             <Box className={classes.box}>
               <FormControl className={classes.formControl}>
                 <InputLabel className={classes.inputLabel}>Type</InputLabel>
-                <Select onChange={handleChange} defaultValue={""}>
+                <Select value={vaccineName} onChange={handleChange}>
                   <MenuItem value={"Pzifer"}>Pfizer</MenuItem>
                   <MenuItem value={"Moderna"}>Moderna</MenuItem>
                   <MenuItem value={"Johnson & Johnson"}>Johnson & Johnson</MenuItem>
@@ -129,7 +138,7 @@ const EditVaccination = (props) => {
           </Grid>
 
           <form onSubmit={handleSubmit}>
-            {value === 'Johnson & Johnson' ? (
+            {vaccineName === 'Johnson & Johnson' ? (
                     <Grid>
 
                       <Grid item xs={4} className={classes.grid}>
@@ -200,18 +209,23 @@ const EditVaccination = (props) => {
 
 };
 
-EditVaccination.propTypes = {
+SubmitVaccination.propTypes = {
   user: PropTypes.string,
   userId: PropTypes.string,
   dateOfSubmission: PropTypes.string,
+  currentVaccine: PropTypes.array,
+  ready: PropTypes.bool.isRequired,
 }
 
-const EditVaccinationContainer = withTracker(() => {
+const SubmitVaccinationContainer = withTracker(() => {
+  const subscription = Meteor.subscribe('Vaccine');
   return {
     user: Meteor.user() ? Meteor.user().username : '',
     userId: Meteor.userId(),
     dateOfSubmission: Date(),
+    currentVaccine: Meteor.user() ? Vaccines.find().fetch() : [],
+    ready: subscription.ready(),
   }
-})(EditVaccination);
+})(SubmitVaccination);
 
-export default withRouter(EditVaccinationContainer);
+export default withRouter(SubmitVaccinationContainer);
