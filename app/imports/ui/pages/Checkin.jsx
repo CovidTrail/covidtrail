@@ -55,7 +55,6 @@ const Checkin = (props) => {
 
   const handleChange = (event) => {
     setValue(event.target.value);
-    console.log(value);
     setHelperText(" ");
     setError(false);
   };
