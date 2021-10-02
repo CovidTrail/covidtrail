@@ -95,15 +95,6 @@ const SubmitVaccination = (props) => {
       Vaccines.remove({ _id: x._id });
     });
 
-    if (
-      vaccineName !== "Johnson & Johnson" &&
-      (lotNum2 === "NA" || date2 === "NA" || location2 === "NA")
-    ) {
-      swal("Error", "Missing required fields", "error").then(function () {
-        window.location = "/submitvaccination";
-      });
-    }
-
     Vaccines.insert(
       {
         userId,
