@@ -19,6 +19,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Checkin from "../pages/Checkin";
 import Vaccination from '../pages/Vaccination';
+import SubmitVaccination from '../pages/SubmitVaccination';
 
 const Root = (props) => {
   return (
@@ -32,7 +33,8 @@ const Root = (props) => {
         <Route path="/register" component={Register} />
         {/* <Route component={NotFound} /> */}
         <PrivateRoute path="/profile" component={Profile} />
-        <PrivateRoute path="/Vaccination" component={Vaccination} />
+        <PrivateRoute path="/vaccination" component={Vaccination} />
+        <PrivateRoute path="/submitvaccination" component={SubmitVaccination}/>
       </Switch>
       <Footer />
     </Router>
