@@ -10,7 +10,8 @@ import {
   MenuItem,
   InputLabel,
   Select,
-  FormControl
+  FormControl,
+    Input,
 } from '@material-ui/core';
 import { useState } from "react";
 import { withTracker } from 'meteor/react-meteor-data';
@@ -122,19 +123,19 @@ const Vaccination = (props) => {
 
                       <Grid item xs={4} className={classes.grid}>
                         <Typography className={classes.textContent}>Lot Numb</Typography>
-                        <input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123"></input>
+                        <Input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123" onChange={(e)=>setLotNum1(e.target.value)}></Input>
 
                       </Grid>
                       <Grid item xs={4} className={classes.grid}>
                         <Typography className={classes.textContent}>Date</Typography>
-                        <input className={classes.input} id="" name="date" type="date" placeholder=""></input>
+                        <Input className={classes.input} id="" name="date" type="date" placeholder="" onChange={(e)=>setDate1(e.target.value)}></Input>
 
                       </Grid>
 
                       <Grid item xs={4} className={classes.grid}>
                         <Typography className={classes.textContent}>Location</Typography>
-                        <input className={classes.input} id="" name="location" type="location"
-                               placeholder="777 Ward Aveune"></input>
+                        <Input className={classes.input} id="" name="location" type="location"
+                               placeholder="777 Ward Aveune" onChange={(e)=> setLocation1(e.target.value)}></Input>
                       </Grid>
                     </Grid>
 
@@ -143,36 +144,36 @@ const Vaccination = (props) => {
 
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>Lot Numb</Typography>
-                    <input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123"></input>
+                    <Input className={classes.input} id="" name="lot number" type="text" placeholder="XX0123" onChange={(e)=> setLotNum1(e.target.value)}></Input>
 
                   </Grid>
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>Date</Typography>
-                    <input className={classes.input} id="" name="date" type="date" placeholder=""></input>
+                    <Input className={classes.input} id="" name="date" type="date" placeholder="" onChange={(e)=> setDate1(e.target.value)}></Input>
 
                   </Grid>
 
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>Location</Typography>
-                    <input className={classes.input} id="" name="location" type="location"
-                           placeholder="777 Ward Aveune"></input>
+                    <Input className={classes.input} id="" name="location" type="location"
+                           placeholder="777 Ward Aveune" onChange={(e)=> setLocation1(e.target.value)}></Input>
                   </Grid>
 
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>Lot Numb</Typography>
-                    <input className={classes.input} id="" name="lotnumber" type="text" placeholder="XX0123"></input>
+                    <Input className={classes.input} id="" name="lotnumber" type="text" placeholder="XX0123" onChange={(e)=> setLotNum2(e.target.value)}></Input>
 
                   </Grid>
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>Date</Typography>
-                    <input className={classes.input} id="" name="type" type="date" placeholder=""></input>
+                    <Input className={classes.input} id="" name="type" type="date" placeholder="" onChange={(e)=> setDate2(e.target.value)}></Input>
 
                   </Grid>
 
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>Location</Typography>
-                    <input className={classes.input} id="" name="location" type="location"
-                           placeholder="777 Ward Aveune"></input>
+                    <Input className={classes.input} id="" name="location" type="location"
+                           placeholder="777 Ward Aveune" onChange={(e)=> setLocation2(e.target.value)}></Input>
                   </Grid>
                 </Grid>
             }
