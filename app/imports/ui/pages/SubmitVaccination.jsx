@@ -95,15 +95,6 @@ const SubmitVaccination = (props) => {
       Vaccines.remove({ _id: x._id });
     });
 
-    if (
-      vaccineName !== "Johnson & Johnson" &&
-      (lotNum2 === "NA" || date2 === "NA" || location2 === "NA")
-    ) {
-      swal("Error", "Missing required fields", "error").then(function () {
-        window.location = "/submitvaccination";
-      });
-    }
-
     Vaccines.insert(
       {
         userId,
@@ -182,7 +173,7 @@ const SubmitVaccination = (props) => {
                   className={classes.input}
                   id="date1"
                   name="date1"
-                  type="date1"
+                  type="date"
                   placeholder="MM/DD/YYYY"
                   onChange={(e) => setDate1(e.target.value)}
                 ></Input>
@@ -223,7 +214,7 @@ const SubmitVaccination = (props) => {
                   className={classes.input}
                   id="date1"
                   name="date1"
-                  type="date1"
+                  type="date"
                   placeholder="MM/DD/YYYY"
                   onChange={(e) => setDate1(e.target.value)}
                 ></Input>
@@ -262,7 +253,7 @@ const SubmitVaccination = (props) => {
                   className={classes.input}
                   id="date2"
                   name="date2"
-                  type="date2"
+                  type="date"
                   placeholder="MM/DD/YYYY"
                   onChange={(e) => setDate2(e.target.value)}
                 ></Input>
