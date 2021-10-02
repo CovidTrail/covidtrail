@@ -6,14 +6,14 @@ const Vaccines = new Mongo.Collection('Vaccines');
 
 const VaccineSchema = new SimpleSchema({
     userId: String,
-    firstName: String,
-    lastName: String,
     vaccineName: String,
     lotNum1: String,
     date1: String,
+    location1: String,
     lotNum2: String,
     date2: String,
-    dateOfBirth: String,
+    location2: String,
+    dateOfSubmission: Date,
 }, { tracker : Tracker });
 
 Vaccines.attachSchema(VaccineSchema);
