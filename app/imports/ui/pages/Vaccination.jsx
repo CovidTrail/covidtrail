@@ -4,9 +4,9 @@ import { Roles } from 'meteor/alanning:roles';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, Grid, List, ListItem, ListItemText, Container, Box, TextField} from '@material-ui/core';
 import { Link, withRouter } from "react-router-dom";
-import SimpleSchema from 'simpl-schema';
 import PropTypes from 'prop-types';
 import { Vaccines } from '../../api/vaccine/Vaccine';
+import { withTracker } from 'meteor/react-meteor-data';
 
 const vaccStyle = makeStyles({
   container: {
@@ -53,15 +53,25 @@ const vaccStyle = makeStyles({
   },
 });
 
-const Vaccination = (prop) => {
+const Vaccination = (props) => {
+  const { vaccine } = props;
   const classes = vaccStyle();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  }
-  const schema = new SimpleSchema({
-    // const
+  var vaccineName = "";
+  var lotOne = "";
+  var siteOne = "";
+  var dateOne = "";
+  var lotTwo = "";
+  var siteTwo = "";
+  var dateTwo = "";
+  vaccine.map( result => {
+    vaccineName = result.vaccineName;
+    lotOne = result.lotNum1;
+    siteOne = result.location1;
+    dateOne = result.date1;
+    lotTwo = result.lotNum2;
+    siteTwo = result.location2;
+    dateTwo = result.date2;
   })
-  // const firstName = Meteor.users.findOne(this.userId).firstname;
   return (
       <Container className={classes.container}>
         <Grid container className={classes.grid}>
@@ -72,16 +82,18 @@ const Vaccination = (prop) => {
           </Grid>
           <Grid className={classes.vaccStatus} container>
             <Grid item xs={6} className={classes.grid}>
-              <Typography className={classes.textContent}>1st Dose</Typography>
-              <Typography className={classes.textContent}>Manufacturer: </Typography>
-              <Typography className={classes.textContent}>Lot Number: </Typography>
-              <Typography className={classes.textContent}>Healthcare Professional/Clinic Site:</Typography>
+              <Typography className={classes.textContent}>1st Dose </Typography>
+              <Typography className={classes.textContent}>Manufacturer: {vaccineName} </Typography>
+              <Typography className={classes.textContent}>Lot Number: {lotOne} </Typography>
+              <Typography className={classes.textContent}>Healthcare Professional/Clinic Site: {siteOne} </Typography>
+              <Typography className={classes.textContent}>Date: {dateOne} </Typography>
             </Grid>
             <Grid item xs={6} className={classes.grid}>
-              <Typography className={classes.textContent}>2nd Dose</Typography>
-              <Typography className={classes.textContent}>Manufacturer: </Typography>
-              <Typography className={classes.textContent}>Lot Number: </Typography>
-              <Typography className={classes.textContent}>Healthcare Professional/Clinic Site: </Typography>
+              <Typography className={classes.textContent}>2nd Dose </Typography>
+              <Typography className={classes.textContent}>Manufacturer: {vaccineName} </Typography>
+              <Typography className={classes.textContent}>Lot Number: {lotTwo} </Typography>
+              <Typography className={classes.textContent}>Healthcare Professional/Clinic Site: {siteTwo}</Typography>
+              <Typography className={classes.textContent}>Date: {dateTwo} </Typography>
             </Grid>
             <Grid item xs={12} className={classes.grid}>
             </Grid>
@@ -94,10 +106,17 @@ const Vaccination = (prop) => {
   );
 };
 
-export default Vaccination;
-// export default withTracker(() => {
-//   const users = Vac.collection.find({}).fetch();
-//   return {
-//     users,
-//   };
-// })(Vaccination);
+Vaccination.propTypes = {
+  vaccine: PropTypes.array,
+  ready: PropTypes.bool.isRequired,
+}
+
+const VaccinationContainer = withTracker(() => {
+  const subscription = Meteor.subscribe('Vaccine');
+  return {
+    vaccine: Vaccines.find().fetch(),
+    ready: subscription.ready(),
+  }
+})(Vaccination);
+
+export default withRouter(VaccinationContainer);
