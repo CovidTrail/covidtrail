@@ -44,7 +44,7 @@ const vaccStyle = makeStyles({
   button: {
     margin: '1em 0 1em 0',
     borderRadius: '10px',
-    backgroundColor: 'primary',
+    backgroundColor: '#3f51b5',
   },
   vaccStatus: {
     boxShadow: '0px 0px 10px 0px',
@@ -55,6 +55,13 @@ const vaccStyle = makeStyles({
 
 const Vaccination = (props) => {
   const { vaccine } = props;
+  const vaccineLength = vaccine.length;
+  var boolean = "";
+  if (vaccineLength > 0 ) {
+    boolean = "Yes";
+  } else {
+    boolean = "No";
+}
   const classes = vaccStyle();
   var vaccineName = "";
   var lotOne = "";
@@ -73,7 +80,9 @@ const Vaccination = (props) => {
     dateTwo = result.date2;
   })
   return (
+
       <Container className={classes.container}>
+        { boolean === "Yes" ? (
         <Grid container className={classes.grid}>
           <Grid item xs={12} className={classes.grid}>
             <Typography className={classes.title} variant='h2' color='primary'>
@@ -97,13 +106,17 @@ const Vaccination = (props) => {
             </Grid>
             <Grid item xs={12} className={classes.grid}>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <Button className={classes.button} href="/">Back</Button>
+              <Button className={classes.button} href="/SubmitVaccination">Resubmit Vaccination</Button>
             </Grid>
           </Grid>
         </Grid>
+        ) : (
+            <Button className={classes.button} href="/SubmitVaccination">Submit Vaccination</Button>
+        )}
       </Container>
-  );
+);
 };
 
 Vaccination.propTypes = {
