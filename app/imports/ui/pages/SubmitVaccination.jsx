@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   },
   input: {
     "&::placeholder": {
-      fontSize: 20,
+      fontSize: 25,
       paddingLeft: "1em",
     },
     height: "3em",
@@ -52,6 +52,14 @@ const useStyles = makeStyles({
     border: "solid black",
     borderRadius: "1em",
     margin: "0 0 1em 0",
+  },
+  inputImage: {
+    height: "3em",
+    width: "30em",
+    border: "solid black",
+    borderRadius: "1em",
+    margin: "0 0 1em 0",
+
   },
   button: {
     margin: "1em 0 1em 0",
@@ -79,13 +87,14 @@ const SubmitVaccination = (props) => {
   const [lotNum1, setLotNum1] = React.useState("");
   const [date1, setDate1] = React.useState("");
   const [location1, setLocation1] = React.useState("");
-  const [lotNum2, setLotNum2] = React.useState("NA");
-  const [date2, setDate2] = React.useState("NA");
-  const [location2, setLocation2] = React.useState("NA");
+  const [lotNum2, setLotNum2] = React.useState("N/A");
+  const [date2, setDate2] = React.useState("N/A");
+  const [location2, setLocation2] = React.useState("N/A");
+  const [image, setImage] = React.useState("N/A");
   const { user, userId, dateOfSubmission, currentVaccine, ready } = props;
   const handleChange = (e) => {
     setVaccineName(e.target.value);
-    console.log(vaccineName);
+    //console.log(vaccineName);
   };
 
   const handleSubmit = (event) => {
@@ -106,6 +115,7 @@ const SubmitVaccination = (props) => {
         date2,
         location2,
         dateOfSubmission,
+        image
       },
       (error) => {
         if (error) {
@@ -192,6 +202,19 @@ const SubmitVaccination = (props) => {
                   onChange={(e) => setLocation1(e.target.value)}
                 ></Input>
               </Grid>
+              <Grid item xs={4} className={classes.grid}>
+                <Typography className={classes.textContent}>
+                  Image
+                </Typography>
+                <Input
+                    className={classes.inputImage}
+                    id="image"
+                    name="image"
+                    type="file"
+                    placeholder="C:\myCard.jpg"
+                    onChange={(e) => setImage(e.target.value)}
+                ></Input>
+              </Grid>
             </Grid>
           ) : (
             <Grid>
@@ -270,6 +293,19 @@ const SubmitVaccination = (props) => {
                   type="location2"
                   placeholder="777 Ward Aveune"
                   onChange={(e) => setLocation2(e.target.value)}
+                ></Input>
+              </Grid>
+              <Grid item xs={4} className={classes.grid}>
+                <Typography className={classes.textContent}>
+                  Image
+                </Typography>
+                <Input
+                    className={classes.inputImage}
+                    id="image"
+                    name="image"
+                    type="file"
+                    placeholder="C:\myCard.jpg"
+                    onChange={(e) => setImage(e.target.value)}
                 ></Input>
               </Grid>
             </Grid>
