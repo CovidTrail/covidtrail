@@ -17,16 +17,20 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 15,
     marginBottom: 15,
     textAlign: 'center',
+    padding:'3em',
+    borderRadius: '4px',
   },
   container: {
     maxWidth: 'lg',
     display: 'flex',
     flexDirection: 'column',
+    marginTop:'40px',
   },
 
   button: {
     justifyContent: 'center',
     alignItems: 'center',
+    margin: "25px 5px 25px 5px",
   },
 
   typography_primary: {
@@ -112,7 +116,7 @@ const Home = (props) => {
 
           <Grid item className={classes.grid} xs={12}>
 
-            <Typography className={classes.typography_secondary} variant='h4' color='secondary'>
+            <Typography className={classes.typography_secondary} variant='h5' color='secondary'>
               Do you your part to prevent community spread. Track your symptoms with our application.
             </Typography>
 
