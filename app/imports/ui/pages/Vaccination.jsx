@@ -25,6 +25,7 @@ const vaccStyle = makeStyles({
     flexDirection: "column",
     marginTop: "3em",
     marginBottom: "3em",
+    height: "60vh",
   },
   grid: {
     justifyContent: "center",
