@@ -84,6 +84,7 @@ const Vaccination = (props) => {
   var lotTwo = "";
   var siteTwo = "";
   var dateTwo = "";
+  var image = "";
   vaccine.map( result => {
     vaccineName = result.vaccineName;
     lotOne = result.lotNum1;
@@ -92,7 +93,9 @@ const Vaccination = (props) => {
     lotTwo = result.lotNum2;
     siteTwo = result.location2;
     dateTwo = result.date2;
+    image = result.image;
   })
+  console.log(image);
   return (
 
       <Container className={classes.container}>

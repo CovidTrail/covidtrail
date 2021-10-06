@@ -94,236 +94,244 @@ const SubmitVaccination = (props) => {
   const { user, userId, dateOfSubmission, currentVaccine, ready } = props;
   const handleChange = (e) => {
     setVaccineName(e.target.value);
-    //console.log(vaccineName);
+    console.log(vaccineName);
+    console.log("Image: ", image);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(vaccineName);
+
+    //grabs path name to the image
+    //now need actual image
+    console.log(image);
+
     currentVaccine.map((x) => {
       Vaccines.remove({ _id: x._id });
     });
 
+
+
     Vaccines.insert(
-      {
-        userId,
-        vaccineName,
-        lotNum1,
-        date1,
-        location1,
-        lotNum2,
-        date2,
-        location2,
-        dateOfSubmission,
-        image
-      },
-      (error) => {
-        if (error) {
-          swal("Error", "Missing required fields", "error").then(function () {
-            window.location = "/submitvaccination";
-          });
-        } else {
-          swal({
-            text: "Success!",
-          }).then(function () {
-            window.location = "/vaccination";
-          });
+        {
+          userId,
+          vaccineName,
+          lotNum1,
+          date1,
+          location1,
+          lotNum2,
+          date2,
+          location2,
+          dateOfSubmission,
+          image
+        },
+        (error) => {
+          if (error) {
+            swal("Error", "Missing required fields", "error").then(function () {
+              window.location = "/submitvaccination";
+            });
+          } else {
+            swal({
+              text: "Success!",
+            }).then(function () {
+              window.location = "/vaccination";
+            });
+          }
         }
-      }
     );
   };
 
-  const schema = new SimpleSchema({
-    // const
-  });
+  // const schema = new SimpleSchema({
+  //   // const
+  // });
   // const firstName = Meteor.users.findOne(this.userId).firstname;
   return (
-    <Container className={classes.container}>
-      <Grid container className={classes.grid}>
-        <Grid item xs={12} className={classes.grid}>
-          <Typography className={classes.title} variant="h2" color="primary">
-            Vaccination Information
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} className={classes.grid}>
-          <Box className={classes.box}>
-            <FormControl className={classes.formControl}>
-              <InputLabel className={classes.inputLabel}>Type</InputLabel>
-              <Select value={vaccineName} onChange={handleChange}>
-                <MenuItem value={"Pzifer"}>Pfizer</MenuItem>
-                <MenuItem value={"Moderna"}>Moderna</MenuItem>
-                <MenuItem value={"Johnson & Johnson"}>
-                  Johnson & Johnson
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </Grid>
-
-        <form onSubmit={handleSubmit}>
-          {vaccineName === "Johnson & Johnson" ? (
-            <Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Lot Numb
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="lotNum1"
-                  name="lotNum1"
-                  type="lotNum1"
-                  placeholder="XX0123"
-                  onChange={(e) => setLotNum1(e.target.value)}
-                ></Input>
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Date</Typography>
-                <Input
-                  className={classes.input}
-                  id="date1"
-                  name="date1"
-                  type="date"
-                  placeholder="MM/DD/YYYY"
-                  onChange={(e) => setDate1(e.target.value)}
-                ></Input>
-              </Grid>
-
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Location
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="location1"
-                  name="location1"
-                  type="location1"
-                  placeholder="777 Ward Aveune"
-                  onChange={(e) => setLocation1(e.target.value)}
-                ></Input>
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Image
-                </Typography>
-                <Input
-                    className={classes.inputImage}
-                    id="image"
-                    name="image"
-                    type="file"
-                    placeholder="C:\myCard.jpg"
-                    onChange={(e) => setImage(e.target.value)}
-                ></Input>
-              </Grid>
-            </Grid>
-          ) : (
-            <Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Lot Numb
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="lotNum1"
-                  name="lotNum1"
-                  type="lotNum1"
-                  placeholder="XX0123"
-                  onChange={(e) => setLotNum1(e.target.value)}
-                ></Input>
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Date</Typography>
-                <Input
-                  className={classes.input}
-                  id="date1"
-                  name="date1"
-                  type="date"
-                  placeholder="MM/DD/YYYY"
-                  onChange={(e) => setDate1(e.target.value)}
-                ></Input>
-              </Grid>
-
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Location
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="location1"
-                  name="location1"
-                  type="location1"
-                  placeholder="777 Ward Aveune"
-                  onChange={(e) => setLocation1(e.target.value)}
-                ></Input>
-              </Grid>
-
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Lot Numb
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="lotNum2"
-                  name="lotNum2"
-                  type="lotNum2"
-                  placeholder="XX0123"
-                  onChange={(e) => setLotNum2(e.target.value)}
-                ></Input>
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Date</Typography>
-                <Input
-                  className={classes.input}
-                  id="date2"
-                  name="date2"
-                  type="date"
-                  placeholder="MM/DD/YYYY"
-                  onChange={(e) => setDate2(e.target.value)}
-                ></Input>
-              </Grid>
-
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Location
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="location2"
-                  name="location2"
-                  type="location2"
-                  placeholder="777 Ward Aveune"
-                  onChange={(e) => setLocation2(e.target.value)}
-                ></Input>
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Image
-                </Typography>
-                <Input
-                    className={classes.inputImage}
-                    id="image"
-                    name="image"
-                    type="file"
-                    placeholder="C:\myCard.jpg"
-                    onChange={(e) => setImage(e.target.value)}
-                ></Input>
-              </Grid>
-            </Grid>
-          )}
-
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              Submit
-            </Button>
+      <Container className={classes.container}>
+        <Grid container className={classes.grid}>
+          <Grid item xs={12} className={classes.grid}>
+            <Typography className={classes.title} variant="h2" color="primary">
+              Vaccination Information
+            </Typography>
           </Grid>
-        </form>
-      </Grid>
-    </Container>
+
+          <Grid item xs={12} className={classes.grid}>
+            <Box className={classes.box}>
+              <FormControl className={classes.formControl}>
+                <InputLabel className={classes.inputLabel}>Type</InputLabel>
+                <Select value={vaccineName} onChange={handleChange}>
+                  <MenuItem value={"Pzifer"}>Pfizer</MenuItem>
+                  <MenuItem value={"Moderna"}>Moderna</MenuItem>
+                  <MenuItem value={"Johnson & Johnson"}>
+                    Johnson & Johnson
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Grid>
+
+          <form onSubmit={handleSubmit}>
+            {vaccineName === "Johnson & Johnson" ? (
+                <Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>
+                      Lot Numb
+                    </Typography>
+                    <Input
+                        className={classes.input}
+                        id="lotNum1"
+                        name="lotNum1"
+                        type="lotNum1"
+                        placeholder="XX0123"
+                        onChange={(e) => setLotNum1(e.target.value)}
+                    > </Input>
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Date</Typography>
+                    <Input
+                        className={classes.input}
+                        id="date1"
+                        name="date1"
+                        type="date"
+                        placeholder="MM/DD/YYYY"
+                        onChange={(e) => setDate1(e.target.value)}
+                    > </Input>
+                  </Grid>
+
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>
+                      Location
+                    </Typography>
+                    <Input
+                        className={classes.input}
+                        id="location1"
+                        name="location1"
+                        type="location1"
+                        placeholder="777 Ward Aveune"
+                        onChange={(e) => setLocation1(e.target.value)}
+                    > </Input>
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>
+                      Image
+                    </Typography>
+                    <Input
+                        className={classes.inputImage}
+                        id="image"
+                        name="image"
+                        type="file"
+                        placeholder="C:\myCard.jpg"
+                        onChange={(e) => setImage(e.target.value)}
+                    > </Input>
+                  </Grid>
+                </Grid>
+            ) : (
+                <Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>
+                      Lot Numb
+                    </Typography>
+                    <Input
+                        className={classes.input}
+                        id="lotNum1"
+                        name="lotNum1"
+                        type="lotNum1"
+                        placeholder="XX0123"
+                        onChange={(e) => setLotNum1(e.target.value)}
+                    > </Input>
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Date</Typography>
+                    <Input
+                        className={classes.input}
+                        id="date1"
+                        name="date1"
+                        type="date"
+                        placeholder="MM/DD/YYYY"
+                        onChange={(e) => setDate1(e.target.value)}
+                    > </Input>
+                  </Grid>
+
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>
+                      Location
+                    </Typography>
+                    <Input
+                        className={classes.input}
+                        id="location1"
+                        name="location1"
+                        type="location1"
+                        placeholder="777 Ward Aveune"
+                        onChange={(e) => setLocation1(e.target.value)}
+                    > </Input>
+                  </Grid>
+
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>
+                      Lot Numb
+                    </Typography>
+                    <Input
+                        className={classes.input}
+                        id="lotNum2"
+                        name="lotNum2"
+                        type="lotNum2"
+                        placeholder="XX0123"
+                        onChange={(e) => setLotNum2(e.target.value)}
+                    > </Input>
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Date</Typography>
+                    <Input
+                        className={classes.input}
+                        id="date2"
+                        name="date2"
+                        type="date"
+                        placeholder="MM/DD/YYYY"
+                        onChange={(e) => setDate2(e.target.value)}
+                    > </Input>
+                  </Grid>
+
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>
+                      Location
+                    </Typography>
+                    <Input
+                        className={classes.input}
+                        id="location2"
+                        name="location2"
+                        type="location2"
+                        placeholder="777 Ward Aveune"
+                        onChange={(e) => setLocation2(e.target.value)}
+                    > </Input>
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>
+                      Image
+                    </Typography>
+                    <Input
+                        className={classes.inputImage}
+                        id="image"
+                        name="image"
+                        type="file"
+                        placeholder="C:\myCard.jpg"
+                        onChange={(e) => setImage(e.target.value)}
+                    > </Input>
+                  </Grid>
+                </Grid>
+            )}
+
+            <Grid item xs={12}>
+              <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+              >
+                Submit
+              </Button>
+            </Grid>
+          </form>
+        </Grid>
+      </Container>
   );
 };
 
@@ -341,7 +349,7 @@ const SubmitVaccinationContainer = withTracker(() => {
     user: Meteor.user() ? Meteor.user().username : "",
     userId: Meteor.userId(),
     dateOfSubmission: Date(),
-    currentVaccine: Meteor.user() ? Vaccines.find({ userId: Meteor.userId() }, {fields: {_id: 1}}).fetch() : [],
+    currentVaccine: Meteor.user() ? Vaccines.find({ userId: Meteor.userId() }, { fields: { _id: 1 } }).fetch() : [],
     ready: subscription.ready(),
   };
 })(SubmitVaccination);
