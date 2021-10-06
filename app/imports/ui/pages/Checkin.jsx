@@ -23,6 +23,7 @@ const styles = makeStyles((theme) => ({
     minHeight: "65vh",
     flexDirection: "column",
     maxWidth: "lg",
+    margin: "40px",
     //backgroundColor: "grey"
   },
   grid: {
@@ -38,6 +39,8 @@ const styles = makeStyles((theme) => ({
     margin: theme.spacing(2),
   },
   submitButton: {
+    width: "100px",
+    height: "45px",
     margin: theme.spacing(1, 1, 0, 0),
   },
   symptoms: {
