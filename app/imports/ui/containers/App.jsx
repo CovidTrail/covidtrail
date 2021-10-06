@@ -36,7 +36,7 @@ const Root = (props) => {
         <PrivateRoute path="/vaccination" component={Vaccination} />
         <PrivateRoute path="/submitvaccination" component={SubmitVaccination}/>
       </Switch>
-      <Footer />
+      <Footer/>
     </Router>
   );
 };
