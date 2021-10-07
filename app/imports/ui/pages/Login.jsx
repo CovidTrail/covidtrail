@@ -14,14 +14,13 @@ const useStyles = makeStyles({
     margin: "150px auto",
     textAlign: "center",
     alignItems: "center",
-    width: "25%",
+    width: "35%",
     border: 0,
-    borderRadius: 3,
     // height: 48,
     // padding: "0 30px",
   },
   input: {
-    width: "100%",
+    // width: "100%",
     height: "50px",
     margin: "0 0 25px 0",
   },
@@ -32,7 +31,7 @@ const useStyles = makeStyles({
     width: "100px",
     height: "45px",
     background: "#4350AF",
-    margin: "25px 0 25px 0",
+    margin: "15px 0 15px 0",
     color: "#FFFFFF",
     "&:hover": {
       opacity: "90%",
@@ -75,7 +74,7 @@ export default Login = ({ location, history }) => {
       {error && <span className={classes.error}>{error}</span>}
       <form onSubmit={handleSubmit}>
         {/* <label htmlFor="email" className={classes.label}> Email address</label> */}
-        <Input
+        <Input fullWidth
           className={classes.input}
           id="email"
           name="email"
@@ -83,7 +82,7 @@ export default Login = ({ location, history }) => {
           onChange={(e) => setEmail(e.target.value)}
         ></Input>
         {/* <label htmlFor="password" className={classes.label}> Password</label> */}
-        <Input
+        <Input fullWidth
           className={classes.input}
           id="password"
           name="password"

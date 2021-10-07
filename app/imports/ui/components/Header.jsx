@@ -52,10 +52,12 @@ const Header = (props) => {
           </Button>
           <Box className={classes.spacer}>
             <Button color="inherit" href="/Checkin">
-              <Typography variant="h6">Checkin</Typography>
+              Checkins
+              {/* <Typography variant="subtitle1">Checkins</Typography> */}
             </Button>
             <Button color="inherit" href="/vaccination">
-              <Typography variant="h6">Vaccination</Typography>
+              Vaccination
+              {/* <Typography variant="subtitle1">Vaccination</Typography> */}
             </Button>
           </Box>
           <IconButton
