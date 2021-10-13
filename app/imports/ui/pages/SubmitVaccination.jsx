@@ -90,7 +90,7 @@ const SubmitVaccination = (props) => {
   const [lotNum2, setLotNum2] = React.useState("N/A");
   const [date2, setDate2] = React.useState("N/A");
   const [location2, setLocation2] = React.useState("N/A");
-  const [image, setImage] = React.useState("N/A");
+  const [image] = React.useState("N/A");
   const { user, userId, dateOfSubmission, currentVaccine, ready } = props;
   const handleChange = (e) => {
     setVaccineName(e.target.value);
@@ -98,13 +98,38 @@ const SubmitVaccination = (props) => {
     console.log("Image: ", image);
   };
 
+  //handle on change of the image we are puting into the
+  //database
+  const onChange = (e) =>{
+    console.log("Image to upload:", e.target.files[0])
+    let file = e.target.files[0]
+
+    if(file){
+      const reader = new FileReader();
+
+      reader.onload = this.handleReaderLoaded.bind(this)
+
+      reader.readAsBinaryString(file)
+    }
+
+  };
+
+  //Convert the image base 64 string to be saved into the database
+  const handleReaderLoaded = (readerEvent) =>{
+    let binaryString = readerEvent.target.result
+    this.setState({base64TextString: bota(binaryString)})
+  };
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(vaccineName);
+    //console.log(vaccineName);
 
     //grabs path name to the image
     //now need actual image
-    console.log(image);
+
+
 
     currentVaccine.map((x) => {
       Vaccines.remove({ _id: x._id });
@@ -220,7 +245,7 @@ const SubmitVaccination = (props) => {
                         name="image"
                         type="file"
                         placeholder="C:\myCard.jpg"
-                        onChange={(e) => setImage(e.target.value)}
+                        onChange={(e) => onChange(e)}
                     > </Input>
                   </Grid>
                 </Grid>
@@ -313,7 +338,8 @@ const SubmitVaccination = (props) => {
                         name="image"
                         type="file"
                         placeholder="C:\myCard.jpg"
-                        onChange={(e) => setImage(e.target.value)}
+                        accept = ".jpeg, .png, .jpg"
+                        onChange={(e) => onChange(e)}
                     > </Input>
                   </Grid>
                 </Grid>
