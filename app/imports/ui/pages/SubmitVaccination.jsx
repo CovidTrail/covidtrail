@@ -11,10 +11,8 @@ import {
   InputLabel,
   Select,
   FormControl,
-  Input,
   TextField,
 } from "@material-ui/core";
-import { useState } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
@@ -27,8 +25,7 @@ const useStyles = makeStyles({
     maxWidth: "lg",
     display: "flex",
     flexDirection: "column",
-    marginTop: "3em",
-    marginBottom: "3em",
+    margin: "3em 0",
   },
   doseContainer: {
     display: "flex",
@@ -126,6 +123,7 @@ const SubmitVaccination = (props) => {
         } else {
           swal({
             text: "Success!",
+            icon: "success",
           }).then(function () {
             window.location = "/vaccination";
           });
