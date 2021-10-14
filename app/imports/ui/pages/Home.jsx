@@ -209,7 +209,7 @@ const Home = (props) => {
 
         {currentUser === "" ? (
           <Grid container justifyContent="center">
-            {/* <Grid item xs={6}>
+            <Grid item xs={6}>
               <Typography className={classes.typography_steps_secondary} variant='h6' color='secondary'>
                 Not yet a member? Become one in 3 easy steps.
               </Typography>
@@ -230,17 +230,15 @@ const Home = (props) => {
                   </ListItemText>
                 </ListItem>
                 <ListItem>
-                  <ListItemText>
+                  {/* <ListItemText>
                     Done!
-                  </ListItemText>
+                  </ListItemText> */}
                 </ListItem>
               </List>
               <Box className={classes.box}>
-                <Button component={Link} to={"/Register"} className={classes.button} variant='outlined' color='primary'>
-                  Register Here
-                </Button>
+
               </Box>
-            </Grid> */}
+            </Grid>
             <Grid item xs={6}>
               <Typography
                 className={classes.typography_steps_primary}

@@ -12,6 +12,7 @@ import {
   Container,
   Box,
   TextField,
+  Paper,
 } from "@material-ui/core";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -39,7 +40,7 @@ const vaccStyle = makeStyles({
   },
   textContent: {
     margin: 2,
-    fontSize: 25,
+    fontSize: 20,
   },
   input: {
     "&::placeholder": {
@@ -56,6 +57,7 @@ const vaccStyle = makeStyles({
     "&:hover": {
       backgroundColor: "#3f51b6",
     },
+    height: "40px",
     margin: "1em 1em 1em 0em",
     borderRadius: "10px",
     backgroundColor: "#3f51b5",
@@ -72,9 +74,10 @@ const vaccStyle = makeStyles({
     color: "White",
   },
   vaccStatus: {
-    boxShadow: "0px 0px 10px 0px",
-    borderRadius: "16px",
-    padding: "2em 8em 3em 8em",
+    // boxShadow: "0px 0px 10px 0px",
+    backgroundColor: "#f1edee",
+    borderRadius: "1em",
+    padding: "2em 4em 3em 4em",
   },
 });
 
@@ -113,7 +116,9 @@ const Vaccination = (props) => {
               Vaccination Card
             </Typography>
           </Grid>
-          <Grid className={classes.vaccStatus} container>
+          <Paper className={classes.vaccStatus}>
+          <Grid container spacing={1}>
+            
             <Grid item xs={6} className={classes.grid}>
               <Typography className={classes.textContent}>1st Dose </Typography>
               <Typography className={classes.textContent}>
@@ -153,7 +158,9 @@ const Vaccination = (props) => {
                 Resubmit Vaccination
               </Button>
             </Grid>
+            
           </Grid>
+          </Paper>
         </Grid>
       ) : (
         <Button className={classes.submitButton} href="/SubmitVaccination">
