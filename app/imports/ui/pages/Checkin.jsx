@@ -19,9 +19,6 @@ import { SwipeableDrawer } from "@material-ui/core";
 
 const styles = makeStyles((theme) => ({
   container: {
-    display: "flex",
-    minHeight: "65vh",
-    flexDirection: "column",
     maxWidth: "lg",
     //backgroundColor: "grey"
   },
