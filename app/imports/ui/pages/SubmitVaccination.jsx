@@ -25,7 +25,8 @@ const useStyles = makeStyles({
     maxWidth: "lg",
     display: "flex",
     flexDirection: "column",
-    margin: "3em 0",
+    padding:"3em",
+    // margin: "3em 0",
   },
   doseContainer: {
     display: "flex",
@@ -97,10 +98,11 @@ const SubmitVaccination = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(vaccineName);
+    console.log(event);
     currentVaccine.map((x) => {
       Vaccines.remove({ _id: x._id });
     });
+
     const image = "testest";
     Vaccines.insert(
       {
@@ -118,6 +120,7 @@ const SubmitVaccination = (props) => {
       (error) => {
         if (error) {
           swal("Error", "Missing required fields", "error").then(function () {
+ 
             window.location = "/submitvaccination";
           });
         } else {
