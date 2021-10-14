@@ -1,83 +1,199 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from 'prop-types';
+import React from "react";
+import { UserProfiles } from "../../api/user/UserProfile";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Button, Typography, Grid, Container, Box, MenuItem, InputLabel, Select, FormControl, Input,
+} from "@material-ui/core";
+import { useState } from "react";
+import { withTracker } from "meteor/react-meteor-data";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import SimpleSchema from "simpl-schema";
+import swal from "sweetalert";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing(2),
-
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '300px',
-    },
-    '& .MuiButtonBase-root': {
-      margin: theme.spacing(2),
-    },
+const useStyles = makeStyles({
+  container: {
+    maxWidth: "lg",
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "3em",
+    marginBottom: "3em",
   },
-}));
+  grid: {
+    justifyContent: "center",
+  },
+  title: {
+    textAlign: "center",
+    color: "primary",
+    marginTop: 10,
+    fontWeight: "bold",
+  },
+  textContent: {
+    margin: 2,
+    fontSize: 25,
+  },
+  input: {
+    "&::placeholder": {
+      fontSize: 20,
+      paddingLeft: "1em",
+    },
+    height: "3em",
+    width: "30em",
+    border: "solid black",
+    borderRadius: "1em",
+    margin: "0 0 1em 0",
+  },
+  button: {
+    margin: "1em 0 1em 0",
+  },
+  formControl: {
+    minWidth: 200,
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
+  inputLabel: {
+    //textAlign: 'center',
+    //textAlign: 'center',
+    //justifyContent: 'center',
+    //paddingLeft: 150,
+  },
+  box: {
+    textAlign: "center",
+    justifyContent: "center",
+  },
+});
 
 const newProfile = (props) => {
-    const Form = ({ handleClose }) => {
-      const classes = useStyles();
-      // create state variables for each input
-      const [firstName, setFirstName] = useState('');
-      const [lastName, setLastName] = useState('');
-      const [email, setEmail] = useState('');
+  const classes = useStyles();
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const { user, userId, ready } = props;
+  // const handleChange = (e) => {
+  //   setVaccineName(e.target.value);
+  //   console.log(vaccineName);
+  // };
 
-      const handleSubmit = e => {
-        e.preventDefault();
-        console.log(firstName, lastName, email, password);
-        handleClose();
-      };
-      return (
-          <form className={classes.root} onSubmit={handleSubmit}>
-            <TextField
-                label="First Name"
-                variant="filled"
-                required
-                // value={this.props.user.firstName}
-                onChange={e => setFirstName(e.target.value)}
-            />
-            <TextField
-                label="Last Name"
-                variant="filled"
-                required
-                // value={this.props.user.lastName}
-                onChange={e => setLastName(e.target.value)}
-            />
-            <TextField
-                label="Email"
-                variant="filled"
-                type="email"
-                required
-                // value={this.props.users.email}
-                onChange={e => setEmail(e.target.value)}
-            />
-            <div>
-              <Button variant="contained" onClick={handleClose}>
-                Cancel
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    UserProfiles.insert(
+        {
+          userId,
+          firstName,
+          lastName,
+          email,
+        },
+        (error) => {
+          if (error) {
+            swal("Error", "Missing required fields", "error").then(function () {
+              window.location = "/newprofile";
+            });
+          } else {
+            swal({
+              text: "Success!",
+            }).then(function () {
+              window.location = "/profile";
+            });
+          }
+        }
+    );
+  };
+
+  const schema = new SimpleSchema({
+    // const
+  });
+  // const firstName = Meteor.users.findOne(this.userId).firstname;
+  return (
+      <Container className={classes.container}>
+        <Grid container className={classes.grid}>
+          <Grid item xs={12} className={classes.grid}>
+            <Typography className={classes.title} variant="h2" color="primary">
+              Profile
+            </Typography>
+          </Grid>
+
+          {/*<Grid item xs={12} className={classes.grid}>*/}
+          {/*  <Box className={classes.box}>*/}
+          {/*    <FormControl className={classes.formControl}>*/}
+          {/*      <InputLabel className={classes.inputLabel}>Type</InputLabel>*/}
+          {/*      <Select value={vaccineName} onChange={handleChange}>*/}
+          {/*        <MenuItem value={"Pzifer"}>Pfizer</MenuItem>*/}
+          {/*        <MenuItem value={"Moderna"}>Moderna</MenuItem>*/}
+          {/*        <MenuItem value={"Johnson & Johnson"}>*/}
+          {/*          Johnson & Johnson*/}
+          {/*        </MenuItem>*/}
+          {/*      </Select>*/}
+          {/*    </FormControl>*/}
+          {/*  </Box>*/}
+          {/*</Grid>*/}
+
+          <form onSubmit={handleSubmit}>
+                <Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>First Name</Typography>
+                    <Input
+                        className={classes.input}
+                        id="firstName"
+                        name="firstName"
+                        type="firstName"
+                        placeholder="First Name"
+                        onChange={(e) => setFirstName(e.target.value)}
+                    ></Input>
+                  </Grid>
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Last Name</Typography>
+                    <Input
+                        className={classes.input}
+                        id="lastName"
+                        name="lastName"
+                        type="lastName"
+                        placeholder="Last Name"
+                        onChange={(e) => setLastName(e.target.value)}
+                    ></Input>
+                  </Grid>
+
+                  <Grid item xs={4} className={classes.grid}>
+                    <Typography className={classes.textContent}>Email</Typography>
+                    <Input
+                        className={classes.input}
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="example@example.com"
+                        onChange={(e) => setEmail(e.target.value)}
+                    ></Input>
+                  </Grid>
+                </Grid>
+            <Grid item xs={12}>
+              <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+              >
+                Submit
               </Button>
-              <Button type="submit" variant="contained" color="primary">
-                Signup
-              </Button>
-            </div>
+            </Grid>
           </form>
-      );
-    }
-}
+        </Grid>
+      </Container>
+  );
+};
 
 newProfile.propTypes = {
-  user: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-  }).isRequired,
+  user: PropTypes.string,
+  userId: PropTypes.string,
+  ready: PropTypes.bool.isRequired,
 };
-export default withRouter(newProfile);
+
+const newProfileContainer = withTracker(() => {
+  const subscription = Meteor.subscribe("Vaccine");
+  return {
+    user: Meteor.user() ? Meteor.user().username : "",
+    userId: Meteor.userId(),
+    // currentVaccine: Meteor.user() ? Vaccines.find({ userId: Meteor.userId() }, {fields: {_id: 1}}).fetch() : [],
+    ready: subscription.ready(),
+  };
+})(newProfile);
+
+export default withRouter(newProfileContainer);
