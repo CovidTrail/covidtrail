@@ -94,7 +94,7 @@ const SubmitVaccination = (props) => {
     currentVaccine.map((x) => {
       Vaccines.remove({ _id: x._id });
     });
-
+    const image = "testest";
     Vaccines.insert(
       {
         userId,
@@ -106,6 +106,7 @@ const SubmitVaccination = (props) => {
         date2,
         location2,
         dateOfSubmission,
+        image,
       },
       (error) => {
         if (error) {
