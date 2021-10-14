@@ -7,7 +7,7 @@ import { Link, withRouter } from "react-router-dom";
 import SimpleSchema from 'simpl-schema';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
-import { UsersCollection } from '../../api/user/User';
+import { UsersCollection } from '../../api/user/UserProfile';
 
 const profileStyle = makeStyles({
   container: {

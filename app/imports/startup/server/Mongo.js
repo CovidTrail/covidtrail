@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { User } from '../../api/user/User';
+// import { User } from '../../api/user/User';
 //import collections from api here
 
 //initializing database

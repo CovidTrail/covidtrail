@@ -2,15 +2,15 @@ import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
 
-const Users = new Mongo.Collection('Users');
+const UserProfiles = new Mongo.Collection('UserProfiles');
 
-const UserSchema = new SimpleSchema({
+const UserProfileSchema = new SimpleSchema({
   userId: String,
   firstName: String,
   lastName: String,
   email: String,
 }, { tracker : Tracker });
 
-Users.attachSchema(UserSchema);
+UserProfiles.attachSchema(UserProfileSchema);
 
-export { Users, UserSchema };
+export { UserProfiles, UserProfileSchema };

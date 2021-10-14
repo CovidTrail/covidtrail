@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Checkins } from '../../api/checkin/Checkin';
 import { Vaccines } from '../../api/vaccine/Vaccine';
-import { User } from '../../api/user/User';
+import { Users } from '../../api/user/UserProfile';
 
 // publish only documents for logged in user
 Meteor.publish('Checkin', function publish() {
@@ -20,9 +20,9 @@ Meteor.publish('Vaccine', function publish() {
     return this.ready();
 })
 
-Meteor.publish(User.userName, function publish() {
+Meteor.publish('Users', function publish() {
   if (this.userId) {
-    return User.collection.find({ user: username });
+    return Users.find({ userId: this.userId})
   }
   return this.ready();
 })
