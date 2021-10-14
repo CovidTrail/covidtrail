@@ -90,31 +90,33 @@ const SubmitVaccination = (props) => {
   const [lotNum2, setLotNum2] = React.useState("N/A");
   const [date2, setDate2] = React.useState("N/A");
   const [location2, setLocation2] = React.useState("N/A");
-  const [image] = React.useState("N/A");
+  const [imageName] = React.useState("N/A");
   const { user, userId, dateOfSubmission, currentVaccine, ready } = props;
+
+  //Handles change from Drop Down Menu
   const handleChange = (e) => {
     setVaccineName(e.target.value);
     console.log(vaccineName);
-    console.log("Image: ", image);
+
   };
 
-  //handle on change of the image we are puting into the
+  //handle on change of the image we are putting into the
   //database
-  const onChange = (e) =>{
+  const onChange = (e) => {
     console.log("Image to upload:", e.target.files[0])
     let file = e.target.files[0]
 
     if(file){
       const reader = new FileReader();
 
-      reader.onload = this.handleReaderLoaded.bind(this)
+      reader.onload = this.handleReaderLoaded
 
       reader.readAsBinaryString(file)
     }
 
   };
 
-  //Convert the image base 64 string to be saved into the database
+  //Convert the image to base 64 string to be saved into the database
   const handleReaderLoaded = (readerEvent) =>{
     let binaryString = readerEvent.target.result
     this.setState({base64TextString: bota(binaryString)})
@@ -135,7 +137,19 @@ const SubmitVaccination = (props) => {
       Vaccines.remove({ _id: x._id });
     });
 
+    //prep Image insert
+    const preview = document.getElementById(imageName)
+    let payload = {imageName: this.state.base64TextString}
+    fetch('http://localhost:3000/vaccines/${this.props.user.id}', {
+      method: "PATCH",
+      headers:{
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+        }).then(resp => resp.json()).then(json => console.log(json))
 
+    preview.src = "data:imageName/png;base64" + this.state.base64TextString
 
     Vaccines.insert(
         {
@@ -148,7 +162,8 @@ const SubmitVaccination = (props) => {
           date2,
           location2,
           dateOfSubmission,
-          image
+          imageName,
+          imageData
         },
         (error) => {
           if (error) {
@@ -199,7 +214,7 @@ const SubmitVaccination = (props) => {
                 <Grid>
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>
-                      Lot Numb
+                      Number
                     </Typography>
                     <Input
                         className={classes.input}
@@ -253,7 +268,7 @@ const SubmitVaccination = (props) => {
                 <Grid>
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>
-                      Lot Numb
+                      Number
                     </Typography>
                     <Input
                         className={classes.input}
@@ -292,7 +307,7 @@ const SubmitVaccination = (props) => {
 
                   <Grid item xs={4} className={classes.grid}>
                     <Typography className={classes.textContent}>
-                      Lot Numb
+                      Number
                     </Typography>
                     <Input
                         className={classes.input}
