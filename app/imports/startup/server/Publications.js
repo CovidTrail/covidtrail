@@ -2,9 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Checkins } from '../../api/checkin/Checkin';
 import { Vaccines } from '../../api/vaccine/Vaccine';
-import { urls } from '../../api/urlCollection/Image';
 import { UserProfiles } from '../../api/user/UserProfile';
-
 
 // publish only documents for logged in user
 Meteor.publish('Checkin', function publish() {
@@ -22,15 +20,6 @@ Meteor.publish('Vaccine', function publish() {
     return this.ready();
 })
 
-
-Meteor.publish('urls', function publish() {
-  if (this.userId) {
-    return urls.find({ userId: this.userID})
-  }
-  return this.ready();
-})
-
-
 Meteor.publish('UserProfile', function publish() {
   if (this.userId) {
     return UserProfiles.find({ userId: this.userId})
@@ -38,18 +27,13 @@ Meteor.publish('UserProfile', function publish() {
   return this.ready();
 })
 
-
 // publish only documents for logged in user
 Meteor.publish('Status', function () {
     return Checkins.find();
 })
 
-Meteor.methods({
-  updateImageUrl: function( id, doc ){
-    urls.collection.update( id, { $set: doc }, {upsert: true});
-  }
-});
-//admin publications
+
+//admin publications 
 
 //publish roles for each user
 Meteor.publish(null, function () {
