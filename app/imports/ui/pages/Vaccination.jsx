@@ -98,6 +98,7 @@ const Vaccination = (props) => {
   var lotTwo = "";
   var siteTwo = "";
   var dateTwo = "";
+  var image = "";
   vaccine.map((result) => {
     vaccineName = result.vaccineName;
     lotOne = result.lotNum1;
@@ -106,6 +107,7 @@ const Vaccination = (props) => {
     lotTwo = result.lotNum2;
     siteTwo = result.location2;
     dateTwo = result.date2;
+    image = result.image;
   });
   return (
     <Container className={classes.container}>
@@ -150,6 +152,9 @@ const Vaccination = (props) => {
               </Typography>
             </Grid>
             <Grid item xs={12} className={classes.grid}></Grid>
+            <Grid item xs={12}>
+            <img src={image}/>
+            </Grid>
             <Grid item xs={6}>
               <Button className={classes.button} href="/">
                 Back

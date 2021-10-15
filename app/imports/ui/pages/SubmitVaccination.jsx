@@ -12,11 +12,12 @@ import {
   Select,
   FormControl,
   TextField,
+  Input,
 } from "@material-ui/core";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-
+import { Cloudinary } from 'meteor/socialize:cloudinary';
 import SimpleSchema from "simpl-schema";
 import swal from "sweetalert";
 
@@ -34,6 +35,14 @@ const useStyles = makeStyles({
   },
   grid: {
     // justifyContent: "center",
+  },
+  inputImage: {
+    height: "3em",
+    width: "10em",
+    border: "solid black",
+    borderRadius: "1em",
+    margin: "0 0 1em 0",
+
   },
   title: {
     textAlign: "center",
@@ -90,12 +99,36 @@ const SubmitVaccination = (props) => {
   const [lotNum2, setLotNum2] = React.useState("NA");
   const [date2, setDate2] = React.useState("NA");
   const [location2, setLocation2] = React.useState("NA");
+  const [image, setImage] = React.useState("");
+  const [imageUrl, setImageUrl]= React.useState("");
+  const [imageAlt, setImageAlt]= React.useState("");
   const { user, userId, dateOfSubmission, currentVaccine, ready } = props;
   const handleChange = (e) => {
     setVaccineName(e.target.value);
     console.log(vaccineName);
   };
 
+    const openImage = () => {
+    // create the widget
+
+    window.cloudinary.createUploadWidget(
+        {
+          cloudName: 'covid-trail',
+          uploadPreset: 'covid-trail',
+        },
+        (error, { event, info }) => {
+          if (event === 'success') {
+
+            const owner = Meteor.user().username;
+            const imageUrl = info.secure_url
+
+            setImage(info.secure_url)
+            setImageAlt("An image of ${info.original_filename}")
+
+          }
+        },
+    ).open(); // open up the widget after creation
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event);
@@ -103,7 +136,7 @@ const SubmitVaccination = (props) => {
       Vaccines.remove({ _id: x._id });
     });
 
-    const image = "testest";
+    
     Vaccines.insert(
       {
         userId,
@@ -189,7 +222,6 @@ const SubmitVaccination = (props) => {
                 label="Date"
                 name="date1"
                 type="date"
-                defaultValue="2021-01-01"
                 onChange={(e) => setDate1(e.target.value)}
                 variant="outlined"
                 margin="normal"
@@ -206,6 +238,15 @@ const SubmitVaccination = (props) => {
                 variant="outlined"
                 margin="normal"
               ></TextField>
+
+                  <Button
+                        className={classes.inputImage}
+                        id="image"
+                        name="image"
+                        type="button"
+                        placeholder="upload image"
+                        onClick={(e) => openImage(e)}
+                    >Upload image</Button>
             </Container>
           ) : (
             <Container className={classes.container}>
@@ -231,7 +272,6 @@ const SubmitVaccination = (props) => {
                     label="Date"
                     name="date1"
                     type="date"
-                    defaultValue="2021-01-01"
                     onChange={(e) => setDate1(e.target.value)}
                     variant="outlined"
                     margin="normal"
@@ -271,7 +311,6 @@ const SubmitVaccination = (props) => {
                     name="date2"
                     type="date"
                     // placeholder="MM/DD/YYYY"
-                    defaultValue="2021-01-01"
                     onChange={(e) => setDate2(e.target.value)}
                     variant="outlined"
                     margin="normal"
@@ -288,6 +327,15 @@ const SubmitVaccination = (props) => {
                     variant="outlined"
                     margin="normal"
                   ></TextField>
+
+                  <Button
+                        className={classes.inputImage}
+                        id="image"
+                        name="image"
+                        type="button"
+                        placeholder="upload image"
+                        onClick={(e) => openImage(e)}
+                    >Upload image</Button>
                 </Container>
               </div>
             </Container>
@@ -329,7 +377,7 @@ const SubmitVaccinationContainer = withTracker(() => {
           { fields: { _id: 1 } }
         ).fetch()
       : [],
-    ready: subscription.ready(),
+      ready: subscription.ready(),
   };
 })(SubmitVaccination);
 
