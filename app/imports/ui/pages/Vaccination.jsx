@@ -18,7 +18,6 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Vaccines } from "../../api/vaccine/Vaccine";
 import { withTracker } from "meteor/react-meteor-data";
-import { Image } from '@material-ui/icons';
 
 const vaccStyle = makeStyles({
   container: {
@@ -99,8 +98,6 @@ const Vaccination = (props) => {
   var lotTwo = "";
   var siteTwo = "";
   var dateTwo = "";
-  var image = "";
-
   vaccine.map((result) => {
     vaccineName = result.vaccineName;
     lotOne = result.lotNum1;
@@ -109,13 +106,7 @@ const Vaccination = (props) => {
     lotTwo = result.lotNum2;
     siteTwo = result.location2;
     dateTwo = result.date2;
-
-    image = result.image;
-  })
-  console.log(image);
-
-
-
+  });
   return (
     <Container className={classes.container}>
       {boolean === "Yes" ? (
@@ -127,7 +118,7 @@ const Vaccination = (props) => {
           </Grid>
           <Paper className={classes.vaccStatus}>
           <Grid container spacing={1}>
-
+            
             <Grid item xs={6} className={classes.grid}>
               <Typography className={classes.textContent}>1st Dose </Typography>
               <Typography className={classes.textContent}>
@@ -157,7 +148,6 @@ const Vaccination = (props) => {
               <Typography className={classes.textContent}>
                 Date: {dateTwo}{" "}
               </Typography>
-
             </Grid>
             <Grid item xs={12} className={classes.grid}></Grid>
             <Grid item xs={6}>
@@ -168,7 +158,7 @@ const Vaccination = (props) => {
                 Resubmit Vaccination
               </Button>
             </Grid>
-
+            
           </Grid>
           </Paper>
         </Grid>
