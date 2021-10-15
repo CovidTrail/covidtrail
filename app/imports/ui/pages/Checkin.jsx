@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -23,8 +24,10 @@ const styles = makeStyles((theme) => ({
     //backgroundColor: "grey"
   },
   grid: {
-    paddingTop: "3vh",
+    justifyContent: "center",
+    // paddingTop: "3vh",
   },
+  text: {textAlign: "center",},
   listItem: {
     paddingBottom: "15px",
   },
@@ -35,6 +38,8 @@ const styles = makeStyles((theme) => ({
     margin: theme.spacing(2),
   },
   submitButton: {
+    width: "100px",
+    height: "45px",
     margin: theme.spacing(1, 1, 0, 0),
   },
   symptoms: {
@@ -70,7 +75,8 @@ const Checkin = (props) => {
             swal('Error', error.message, 'error');
           } else {
             swal({
-              text: 'Success!'
+              text: 'Success!',
+              icon: "success",
             }).then(function() {
               window.location = "/";
             });
@@ -84,21 +90,23 @@ const Checkin = (props) => {
   };
 
   return (
-    <Container className={classes.container}>
-      <Grid container className={classes.grid}>
+    <Container className={classes.container} >
+      <Grid container className={classes.grid} justifyContent="center">
+        
         <Grid item xs={12}>
           <Box>
-            <Typography variant="h4" align="center">
+            <Typography className={classes.text} variant="h3" align="center" gutterBottom>
               Daily Covid-19 Check in
             </Typography>
           </Box>
         </Grid>
+        <Paper style={{background:"#ADD8E6", width:"30em", padding:"1em 0", borderRadius:"0.5em"}}>
         <Grid item xs={12} className={classes.symptoms}>
           <ul className={classes.list}>
             <li>
               <Box className={classes.listItem}>
                 <b>Have you experienced any of these symptoms?</b>
-                <ul>
+                <ul style={{marginTop: "10px"}}>
                   <li>Fever or chills</li>
                   <li>Cough</li>
                   <li>Shortness of breath or difficulty breathing</li>
@@ -124,7 +132,9 @@ const Checkin = (props) => {
               </Box>
             </li>
           </ul>
+          
         </Grid>
+        </Paper>
         <Grid container item xs={12} className={classes.symptoms}>
           <Box>
             <form onSubmit={handleSubmit}>
@@ -149,7 +159,7 @@ const Checkin = (props) => {
                 <FormHelperText>{helperText}</FormHelperText>
                 <Button
                   type="submit"
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                   className={classes.submitButton}
                 >

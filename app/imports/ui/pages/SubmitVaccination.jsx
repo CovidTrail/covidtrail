@@ -11,9 +11,8 @@ import {
   InputLabel,
   Select,
   FormControl,
-  Input,
+  TextField,
 } from "@material-ui/core";
-import { useState } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
@@ -26,11 +25,15 @@ const useStyles = makeStyles({
     maxWidth: "lg",
     display: "flex",
     flexDirection: "column",
-    marginTop: "3em",
-    marginBottom: "3em",
+    padding:"3em",
+    // margin: "3em 0",
+  },
+  doseContainer: {
+    display: "flex",
+    flexDirection: "column",
   },
   grid: {
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   title: {
     textAlign: "center",
@@ -41,20 +44,25 @@ const useStyles = makeStyles({
   textContent: {
     margin: 2,
     fontSize: 25,
+    width: "7em",
+    textAlign: "center",
+    width: "9em",
+    background: "#ADD8E6",
+    borderRadius: "0.2em",
   },
   input: {
     "&::placeholder": {
       fontSize: 20,
-      paddingLeft: "1em",
+      // paddingLeft: "1em",
     },
     height: "3em",
-    width: "30em",
-    border: "solid black",
+    width: "12em",
+    // border: "solid black",
     borderRadius: "1em",
-    margin: "0 0 1em 0",
+    margin: "1em",
   },
   button: {
-    margin: "1em 0 1em 0",
+    margin: "0 0",
   },
   formControl: {
     minWidth: 200,
@@ -90,10 +98,11 @@ const SubmitVaccination = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(vaccineName);
+    console.log(event);
     currentVaccine.map((x) => {
       Vaccines.remove({ _id: x._id });
     });
+
     const image = "testest";
     Vaccines.insert(
       {
@@ -111,11 +120,13 @@ const SubmitVaccination = (props) => {
       (error) => {
         if (error) {
           swal("Error", "Missing required fields", "error").then(function () {
+ 
             window.location = "/submitvaccination";
           });
         } else {
           swal({
             text: "Success!",
+            icon: "success",
           }).then(function () {
             window.location = "/vaccination";
           });
@@ -130,7 +141,12 @@ const SubmitVaccination = (props) => {
   // const firstName = Meteor.users.findOne(this.userId).firstname;
   return (
     <Container className={classes.container}>
-      <Grid container className={classes.grid}>
+      <Grid
+        container
+        className={classes.grid}
+        spacing={2}
+        justifyContent="center"
+      >
         <Grid item xs={12} className={classes.grid}>
           <Typography className={classes.title} variant="h2" color="primary">
             Vaccination Information
@@ -145,7 +161,7 @@ const SubmitVaccination = (props) => {
                 <MenuItem value={"Pzifer"}>Pfizer</MenuItem>
                 <MenuItem value={"Moderna"}>Moderna</MenuItem>
                 <MenuItem value={"Johnson & Johnson"}>
-                  Johnson & Johnson
+                  {`Johnson & Johnson`}
                 </MenuItem>
               </Select>
             </FormControl>
@@ -154,129 +170,130 @@ const SubmitVaccination = (props) => {
 
         <form onSubmit={handleSubmit}>
           {vaccineName === "Johnson & Johnson" ? (
-            <Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Lot Numb
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="lotNum1"
-                  name="lotNum1"
-                  type="lotNum1"
-                  placeholder="XX0123"
-                  onChange={(e) => setLotNum1(e.target.value)}
-                ></Input>
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Date</Typography>
-                <Input
-                  className={classes.input}
-                  id="date1"
-                  name="date1"
-                  type="date"
-                  placeholder="MM/DD/YYYY"
-                  onChange={(e) => setDate1(e.target.value)}
-                ></Input>
-              </Grid>
+            <Container className={classes.doseContainer}>
+              <TextField
+                className={classes.input}
+                id="lotNum1"
+                label="Lot Number"
+                name="lotNum1"
+                type="lotNum1"
+                placeholder="XX0123"
+                onChange={(e) => setLotNum1(e.target.value)}
+                variant="outlined"
+                margin="normal"
+              ></TextField>
 
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Location
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="location1"
-                  name="location1"
-                  type="location1"
-                  placeholder="777 Ward Aveune"
-                  onChange={(e) => setLocation1(e.target.value)}
-                ></Input>
-              </Grid>
-            </Grid>
+              <TextField
+                className={classes.input}
+                id="date1"
+                label="Date"
+                name="date1"
+                type="date"
+                defaultValue="2021-01-01"
+                onChange={(e) => setDate1(e.target.value)}
+                variant="outlined"
+                margin="normal"
+              ></TextField>
+
+              <TextField
+                className={classes.input}
+                id="location1"
+                label="Location"
+                name="location1"
+                type="location1"
+                placeholder="777 Ward Aveune"
+                onChange={(e) => setLocation1(e.target.value)}
+                variant="outlined"
+                margin="normal"
+              ></TextField>
+            </Container>
           ) : (
-            <Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Lot Numb
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="lotNum1"
-                  name="lotNum1"
-                  type="lotNum1"
-                  placeholder="XX0123"
-                  onChange={(e) => setLotNum1(e.target.value)}
-                ></Input>
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Date</Typography>
-                <Input
-                  className={classes.input}
-                  id="date1"
-                  name="date1"
-                  type="date"
-                  placeholder="MM/DD/YYYY"
-                  onChange={(e) => setDate1(e.target.value)}
-                ></Input>
-              </Grid>
+            <Container className={classes.container}>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <Container className={classes.doseContainer}>
+                  <Typography className={classes.textContent}>
+                    1st Dose
+                  </Typography>
+                  <TextField
+                    className={classes.input}
+                    id="lotNum1"
+                    label="Lot Number"
+                    name="lotNum1"
+                    type="lotNum1"
+                    placeholder="XX0123"
+                    onChange={(e) => setLotNum1(e.target.value)}
+                    variant="outlined"
+                    margin="normal"
+                  ></TextField>
+                  <TextField
+                    className={classes.input}
+                    id="date1"
+                    label="Date"
+                    name="date1"
+                    type="date"
+                    defaultValue="2021-01-01"
+                    onChange={(e) => setDate1(e.target.value)}
+                    variant="outlined"
+                    margin="normal"
+                  ></TextField>
+                  <TextField
+                    className={classes.input}
+                    id="location1"
+                    label="Location"
+                    name="location1"
+                    type="location1"
+                    placeholder="777 Ward Aveune"
+                    onChange={(e) => setLocation1(e.target.value)}
+                    variant="outlined"
+                    margin="normal"
+                  ></TextField>
+                </Container>
 
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Location
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="location1"
-                  name="location1"
-                  type="location1"
-                  placeholder="777 Ward Aveune"
-                  onChange={(e) => setLocation1(e.target.value)}
-                ></Input>
-              </Grid>
+                <Container className={classes.doseContainer}>
+                  <Typography className={classes.textContent}>
+                    2nd Dose
+                  </Typography>
+                  <TextField
+                    className={classes.input}
+                    id="lotNum2"
+                    label="Lot Number"
+                    name="lotNum2"
+                    type="lotNum2"
+                    placeholder="XX0123"
+                    onChange={(e) => setLotNum2(e.target.value)}
+                    variant="outlined"
+                    margin="normal"
+                  ></TextField>
+                  <TextField
+                    className={classes.input}
+                    id="date2"
+                    label="Date"
+                    name="date2"
+                    type="date"
+                    // placeholder="MM/DD/YYYY"
+                    defaultValue="2021-01-01"
+                    onChange={(e) => setDate2(e.target.value)}
+                    variant="outlined"
+                    margin="normal"
+                  ></TextField>
 
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Lot Numb
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="lotNum2"
-                  name="lotNum2"
-                  type="lotNum2"
-                  placeholder="XX0123"
-                  onChange={(e) => setLotNum2(e.target.value)}
-                ></Input>
-              </Grid>
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>Date</Typography>
-                <Input
-                  className={classes.input}
-                  id="date2"
-                  name="date2"
-                  type="date"
-                  placeholder="MM/DD/YYYY"
-                  onChange={(e) => setDate2(e.target.value)}
-                ></Input>
-              </Grid>
-
-              <Grid item xs={4} className={classes.grid}>
-                <Typography className={classes.textContent}>
-                  Location
-                </Typography>
-                <Input
-                  className={classes.input}
-                  id="location2"
-                  name="location2"
-                  type="location2"
-                  placeholder="777 Ward Aveune"
-                  onChange={(e) => setLocation2(e.target.value)}
-                ></Input>
-              </Grid>
-            </Grid>
+                  <TextField
+                    className={classes.input}
+                    id="location2"
+                    label="Location"
+                    name="location2"
+                    type="location2"
+                    placeholder="777 Ward Aveune"
+                    onChange={(e) => setLocation2(e.target.value)}
+                    variant="outlined"
+                    margin="normal"
+                  ></TextField>
+                </Container>
+              </div>
+            </Container>
           )}
 
-          <Grid item xs={12}>
+          <Container style={{textAlign:"right"}}>
             <Button
               type="submit"
               variant="contained"
@@ -285,7 +302,7 @@ const SubmitVaccination = (props) => {
             >
               Submit
             </Button>
-          </Grid>
+          </Container>
         </form>
       </Grid>
     </Container>
@@ -306,7 +323,12 @@ const SubmitVaccinationContainer = withTracker(() => {
     user: Meteor.user() ? Meteor.user().username : "",
     userId: Meteor.userId(),
     dateOfSubmission: Date(),
-    currentVaccine: Meteor.user() ? Vaccines.find({ userId: Meteor.userId() }, {fields: {_id: 1}}).fetch() : [],
+    currentVaccine: Meteor.user()
+      ? Vaccines.find(
+          { userId: Meteor.userId() },
+          { fields: { _id: 1 } }
+        ).fetch()
+      : [],
     ready: subscription.ready(),
   };
 })(SubmitVaccination);

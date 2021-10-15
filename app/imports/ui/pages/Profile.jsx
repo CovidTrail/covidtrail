@@ -1,30 +1,42 @@
 import React from "react";
-import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography, Grid, List, ListItem, ListItemText, Container, Box, TextField} from '@material-ui/core';
+import { Meteor } from "meteor/meteor";
+import { Roles } from "meteor/alanning:roles";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Button,
+  Typography,
+  Grid,
+  Input,
+  List,
+  ListItem,
+  ListItemText,
+  Container,
+  Box,
+  TextField,
+} from "@material-ui/core";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { UserProfiles } from '../../api/user/UserProfile';
+import SimpleSchema from "simpl-schema";
 
 const profileStyle = makeStyles({
   container: {
-    width: '50%',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: '3em',
-    marginBottom: '3em',
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: "lg",
+    margin: "2.7em auto",
+    alignItems: "center",
+    border: 0,
   },
   grid: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   title: {
-    textAlign: 'center',
-    color: 'primary',
-    marginTop: 10,
-    marginBottom: 10,
-    fontWeight: 'bold',
+    textAlign: "center",
+    color: "primary",
+    margin: "35px 0",
+    fontWeight: "bold",
   },
   profInfo: {
     boxShadow: '0px 0px 10px 0px',
