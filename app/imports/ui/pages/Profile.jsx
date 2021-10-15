@@ -1,45 +1,59 @@
 import React from "react";
-import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography, Grid, List, ListItem, ListItemText, Container, Box, TextField} from '@material-ui/core';
+import { Meteor } from "meteor/meteor";
+import { Roles } from "meteor/alanning:roles";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Button,
+  Typography,
+  Grid,
+  Input,
+  List,
+  ListItem,
+  ListItemText,
+  Container,
+  Box,
+  TextField,
+} from "@material-ui/core";
 import { Link, withRouter } from "react-router-dom";
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from "simpl-schema";
 
 const profileStyle = makeStyles({
   container: {
-    maxWidth: 'lg',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: '3em',
-    marginBottom: '3em',
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: "lg",
+    margin: "2.7em auto",
+    alignItems: "center",
+    border: 0,
   },
   grid: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   title: {
-    textAlign: 'center',
-    color: 'primary',
-    marginTop: 10,
-    fontWeight: 'bold',
+    textAlign: "center",
+    color: "primary",
+    margin: "35px 0",
+    fontWeight: "bold",
   },
   textContent: {
-    margin: 2,
-    fontSize: 25,
+    margin: 4,
+    fontSize: "20px",
   },
   input: {
     "&::placeholder": {
-      fontSize: 20,
-      paddingLeft: '1em',
+      fontSize: "18px",
+      // marginLeft: '3em',
     },
-    height: '3em',
-    width: '30em',
-    border: 'solid black',
-    borderRadius: '1em',
-    margin: '0 0 1em 0',
+    height: "45px",
+    width: "25em",
+    border: "solid #FGFGFG",
+    borderRadius: "4px",
+    margin: "0 0 1em 0",
   },
   button: {
-    margin: '1em 0 1em 0',
+    margin: "1em",
+    width: "100px",
+    height: "45px",
   },
 });
 
@@ -47,41 +61,72 @@ const Profile = (prop) => {
   const classes = profileStyle();
   const handleSubmit = (event) => {
     event.preventDefault();
-  }
+  };
   const schema = new SimpleSchema({
-    // const 
-  })
+    // const
+  });
   // const firstName = Meteor.users.findOne(this.userId).firstname;
-    return (
-        <Container className={classes.container}>
-          <Grid container className={classes.grid}>
+  return (
+    <Container className={classes.container}>
+      <Grid container className={classes.grid}>
+        <Grid item xs={12} className={classes.grid}>
+          <Typography className={classes.title} variant="h2" color="primary">
+            Profile
+          </Typography>
+        </Grid>
+        <form onSubmit={handleSubmit}>
+          <Grid>
             <Grid item xs={12} className={classes.grid}>
-              <Typography className={classes.title} variant='h2' color='primary'>
-                Profile
+              <Typography className={classes.textContent}>
+                First Name
               </Typography>
+              <Input
+                className={classes.input}
+                id="firstName"
+                name="firstName"
+                type="text"
+                placeholder="First Name"
+              ></Input>
             </Grid>
-            <form onSubmit={handleSubmit}>
-              <Grid>
-                  <Grid item xs={12} className={classes.grid}>
-                    <Typography className={classes.textContent}>First Name</Typography>
-                    <input className={classes.input} id="firstName" name="firstName" type="text" placeholder="First Name"></input>
-                  </Grid>
-                  <Grid item xs={12} className={classes.grid}>
-                    <Typography className={classes.textContent}>Last Name</Typography>
-                    <input className={classes.input} id="lastName" name="lastName" type="text" placeholder="Last Name"></input>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.textContent}>Email</Typography>
-                    <input className={classes.input} id="email" name="email" type="email" placeholder="Email"></input>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button className={classes.button} href="/">Back</Button>
-                    <Button type="submit" variant="contained" color="primary" className={classes.button}>Update</Button>
-                  </Grid>
-                </Grid>
-              </form>
+            <Grid item xs={12} className={classes.grid}>
+              <Typography className={classes.textContent}>Last Name</Typography>
+              <Input
+                className={classes.input}
+                id="lastName"
+                name="lastName"
+                type="text"
+                placeholder="Last Name"
+              ></Input>
             </Grid>
-        </Container>
+            <Grid item xs={12}>
+              <Typography className={classes.textContent}>Email</Typography>
+              <Input
+                className={classes.input}
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Email"
+              ></Input>
+            </Grid>
+            <Grid item xs={12}>
+              <div style={{ textAlign: "right" }}>
+                <Button className={classes.button} href="/">
+                  Back
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                >
+                  Update
+                </Button>
+              </div>
+            </Grid>
+          </Grid>
+        </form>
+      </Grid>
+    </Container>
   );
 };
 
