@@ -16,7 +16,6 @@ import About from "../pages/About";
 import Profile from "../pages/Profile";
 import newProfile from "../pages/newProfile";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Checkin from "../pages/Checkin";
 import Vaccination from '../pages/Vaccination';
 import SubmitVaccination from '../pages/SubmitVaccination';
@@ -24,6 +23,7 @@ import Form from "../pages/newProfile";
 
 const Root = (props) => {
   return (
+    <div style={{height: "100%"}}>
     <Router>
       <Header />
       <Switch>
@@ -39,8 +39,8 @@ const Root = (props) => {
         <PrivateRoute path="/submitvaccination" component={SubmitVaccination}/>
         <Route path="/Form" component={Form} />
       </Switch>
-      <Footer />
     </Router>
+    </div>
   );
 };
 
