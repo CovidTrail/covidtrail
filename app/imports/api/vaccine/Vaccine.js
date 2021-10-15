@@ -14,8 +14,7 @@ const VaccineSchema = new SimpleSchema({
     date2: String,
     location2: String,
     dateOfSubmission: Date,
-    imageName : String,
-    imageData: String
+    image : String
 }, { tracker : Tracker });
 
 Vaccines.attachSchema(VaccineSchema);

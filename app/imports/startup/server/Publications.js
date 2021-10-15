@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Checkins } from '../../api/checkin/Checkin';
 import { Vaccines } from '../../api/vaccine/Vaccine';
+import { urls } from '../../api/urlCollection/Image';
+
 
 // publish only documents for logged in user
 Meteor.publish('Checkin', function publish() {
@@ -19,14 +21,25 @@ Meteor.publish('Vaccine', function publish() {
     return this.ready();
 })
 
+Meteor.publish('urls', function publish() {
+  if (this.userId) {
+    return urls.find({ userId: this.userID})
+  }
+  return this.ready();
+})
+
 
 // publish only documents for logged in user
 Meteor.publish('Status', function () {
     return Checkins.find();
 })
 
-
-//admin publications 
+Meteor.methods({
+  updateImageUrl: function( id, doc ){
+    urls.collection.update( id, { $set: doc }, {upsert: true});
+  }
+});
+//admin publications
 
 //publish roles for each user
 Meteor.publish(null, function () {

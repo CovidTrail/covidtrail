@@ -17,9 +17,11 @@ import { useState } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import Image from "../../api/urlCollection/Image"
 
 import SimpleSchema from "simpl-schema";
 import swal from "sweetalert";
+import { Cloudinary } from 'meteor/socialize:cloudinary';
 
 const useStyles = makeStyles({
   container: {
@@ -90,10 +92,14 @@ const SubmitVaccination = (props) => {
   const [lotNum2, setLotNum2] = React.useState("N/A");
   const [date2, setDate2] = React.useState("N/A");
   const [location2, setLocation2] = React.useState("N/A");
-  const [imageName] = React.useState("N/A");
+  const [image, setImage] = React.useState("N/A");
+
+
+  const [imageUrl, setImageUrl]= React.useState("")
+  const [imageAlt, setImageAlt]= React.useState("")
   const { user, userId, dateOfSubmission, currentVaccine, ready } = props;
 
-  //Handles change from Drop Down Menu
+//Handles change from Drop Down Menu
   const handleChange = (e) => {
     setVaccineName(e.target.value);
     console.log(vaccineName);
@@ -103,53 +109,43 @@ const SubmitVaccination = (props) => {
   //handle on change of the image we are putting into the
   //database
   const onChange = (e) => {
+    //Good
     console.log("Image to upload:", e.target.files[0])
-    let file = e.target.files[0]
-
-    if(file){
-      const reader = new FileReader();
-
-      reader.onload = this.handleReaderLoaded
-
-      reader.readAsBinaryString(file)
-    }
-
+    setImage(e.target.files[0]);
+    //image now has all information from target
   };
 
-  //Convert the image to base 64 string to be saved into the database
-  const handleReaderLoaded = (readerEvent) =>{
-    let binaryString = readerEvent.target.result
-    this.setState({base64TextString: bota(binaryString)})
+  const openImage = () => {
+    // create the widget
+
+    window.cloudinary.createUploadWidget(
+        {
+          cloudName: 'covid-trail',
+          uploadPreset: 'covid-trail',
+        },
+        (error, { event, info }) => {
+          if (event === 'success') {
+
+            const owner = Meteor.user().username;
+            const imageUrl = info.secure_url
+            Meteor.call('updateImageUrl', owner, { owner, imageUrl })
+
+
+            setImage(info.secure_url)
+            console.log("Image after insert? :", image)
+            setImageAlt("An image of ${info.original_filename}")
+
+          }
+        },
+    ).open(); // open up the widget after creation
   };
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //console.log(vaccineName);
-
-    //grabs path name to the image
-    //now need actual image
-
-
 
     currentVaccine.map((x) => {
       Vaccines.remove({ _id: x._id });
     });
-
-    //prep Image insert
-    const preview = document.getElementById(imageName)
-    let payload = {imageName: this.state.base64TextString}
-    fetch('http://localhost:3000/vaccines/${this.props.user.id}', {
-      method: "PATCH",
-      headers:{
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-        }).then(resp => resp.json()).then(json => console.log(json))
-
-    preview.src = "data:imageName/png;base64" + this.state.base64TextString
 
     Vaccines.insert(
         {
@@ -162,8 +158,7 @@ const SubmitVaccination = (props) => {
           date2,
           location2,
           dateOfSubmission,
-          imageName,
-          imageData
+          image
         },
         (error) => {
           if (error) {
@@ -258,9 +253,9 @@ const SubmitVaccination = (props) => {
                         className={classes.inputImage}
                         id="image"
                         name="image"
-                        type="file"
+                        type="button"
                         placeholder="C:\myCard.jpg"
-                        onChange={(e) => onChange(e)}
+                        onClick={(e) => openImage(e)}
                     > </Input>
                   </Grid>
                 </Grid>
@@ -351,10 +346,10 @@ const SubmitVaccination = (props) => {
                         className={classes.inputImage}
                         id="image"
                         name="image"
-                        type="file"
+                        type="button"
                         placeholder="C:\myCard.jpg"
-                        accept = ".jpeg, .png, .jpg"
-                        onChange={(e) => onChange(e)}
+                        accept=".jpeg, .png, .jpg"
+                        onClick={(e) => openImage(e)}
                     > </Input>
                   </Grid>
                 </Grid>
@@ -386,12 +381,14 @@ SubmitVaccination.propTypes = {
 
 const SubmitVaccinationContainer = withTracker(() => {
   const subscription = Meteor.subscribe("Vaccine");
+  const urlsubscription = Meteor.subscribe("urls");
   return {
     user: Meteor.user() ? Meteor.user().username : "",
     userId: Meteor.userId(),
     dateOfSubmission: Date(),
     currentVaccine: Meteor.user() ? Vaccines.find({ userId: Meteor.userId() }, { fields: { _id: 1 } }).fetch() : [],
-    ready: subscription.ready(),
+    ready: subscription.ready() && urlsubscription.ready(),
+
   };
 })(SubmitVaccination);
 
