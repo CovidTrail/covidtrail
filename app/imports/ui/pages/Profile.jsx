@@ -4,10 +4,9 @@ import { Roles } from 'meteor/alanning:roles';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, Grid, List, ListItem, ListItemText, Container, Box, TextField} from '@material-ui/core';
 import { Link, withRouter } from "react-router-dom";
-import SimpleSchema from 'simpl-schema';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
-import { UsersCollection } from '../../api/user/UserProfile';
+import { UserProfiles } from '../../api/user/UserProfile';
 
 const profileStyle = makeStyles({
   container: {
@@ -47,54 +46,34 @@ const profileStyle = makeStyles({
 });
 
 const Profile = (props) => {
+  const { userTest } = props;
+  console.log(userTest);
+  const userLength = userTest.length;
+  var boolean = "";
+  if (userLength > 0 ) {
+    boolean = "Yes";
+  } else {
+    boolean = "No";
+  }
+  userTest.map( result => {
+    firstName = result.firstName;
+    lastName = result.lastName;
+    email = result.email;
+  })
   const classes = profileStyle();
-  //
-  // const [value, setValue] = React.useState(null);
-  // const [error, setError] = React.useState(false);
-  // const [helperText, setHelperText] = React.useState("");
-  // const { userId, email, firstName, lastName } = props;
-  //
-  // const handleChange = (event) => {
-  //   setValue(event.target.value);
-  //   setHelperText(" ");
-  //   setError(false);
-  // };
-  //
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log(user);
-  //   if (user)
-  //   {
-  //     console.log(currentStatus);
-  //     currentStatus.map(x => { UsersCollection.remove({ _id: x._id })});
-  //     const status = value
-  //     UsersCollection.insert({ userId, email, firstName, lastName },
-  //         (error) => {
-  //           if (error) {
-  //             swal('Error', error.message, 'error');
-  //           } else {
-  //             swal('Success');
-  //           }
-  //         });
-  //   } else {
-  //     swal('Error, you must log in to submit an answer');
-  //     setError(true);
-  //   }
-  // const firstName = Meteor.users.findOne(this.userId).firstname;
     return (
         <Container className={classes.container}>
+          { boolean === "Yes" ? (
           <Grid container className={classes.grid}>
             <Grid item xs={12} className={classes.grid}>
               <Typography className={classes.title} variant='h2' color='primary'>
                 Profile
               </Typography>
             </Grid>
-            {/*<form onSubmit={handleSubmit}>*/}
               <Grid>
                   <Grid item xs={12} className={classes.grid}>
                     <Typography className={classes.textContent}>First Name</Typography>
-                    <input className={classes.input} id="firstName" name="firstName" type="text" value={this.props.userId.profile}></input>
-                    {/*<input className={classes.input} id="firstName" name="firstName" type="text" placeholder={this.props.user.firstName}></input>*/}
+                    <input className={classes.input} id="firstName" name="firstName" type="text" value={firstName}></input>
                   </Grid>
                   <Grid item xs={12} className={classes.grid}>
                     <Typography className={classes.textContent}>Last Name</Typography>
@@ -109,26 +88,25 @@ const Profile = (props) => {
                     <Button type="submit" variant="contained" color="primary" className={classes.button}>Update</Button>
                   </Grid>
                 </Grid>
-              {/*</form>*/}
             </Grid>
+          ) : (
+              <Button className={classes.submitButton} href="/newProfile">Create Profile</Button>
+          )}
         </Container>
   );
 };
-// }
 
 Profile.propTypes = {
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-};
+  userTest: PropTypes.array,
+  ready: PropTypes.bool.isRequired,
+}
 
-export default withRouter(Profile);
+const ProfileContainer = withTracker(() => {
+  const subscription = Meteor.subscribe('UserProfile');
+  return {
+    userTest: UserProfiles.find().fetch(),
+    ready: subscription.ready(),
+  }
+})(Profile);
 
-
-// const ProfileinContainer = withTracker(() => {
-//   return {
-//     userId: Meteor.userId(),
-//     currentStatus: Meteor.user() ? UsersCollection.find({user: Meteor.user().username, date: currentDate}, {fields: { _id: 1 }}).fetch() : [],
-//   }
-// })(Profile);
-// export default Profile;
+export default withRouter(ProfileContainer);

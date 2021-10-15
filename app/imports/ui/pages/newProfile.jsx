@@ -68,7 +68,7 @@ const newProfile = (props) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const { user, userId, ready } = props;
+  const { user, userId, dateOfSubmission, currentProfile, ready } = props;
   // const handleChange = (e) => {
   //   setVaccineName(e.target.value);
   //   console.log(vaccineName);
@@ -76,12 +76,16 @@ const newProfile = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    currentProfile.map((x) => {
+      UserProfiles.remove({ _id: x._id });
+    });
     UserProfiles.insert(
         {
           userId,
           firstName,
           lastName,
           email,
+          dateOfSubmission,
         },
         (error) => {
           if (error) {
@@ -111,21 +115,6 @@ const newProfile = (props) => {
               Profile
             </Typography>
           </Grid>
-
-          {/*<Grid item xs={12} className={classes.grid}>*/}
-          {/*  <Box className={classes.box}>*/}
-          {/*    <FormControl className={classes.formControl}>*/}
-          {/*      <InputLabel className={classes.inputLabel}>Type</InputLabel>*/}
-          {/*      <Select value={vaccineName} onChange={handleChange}>*/}
-          {/*        <MenuItem value={"Pzifer"}>Pfizer</MenuItem>*/}
-          {/*        <MenuItem value={"Moderna"}>Moderna</MenuItem>*/}
-          {/*        <MenuItem value={"Johnson & Johnson"}>*/}
-          {/*          Johnson & Johnson*/}
-          {/*        </MenuItem>*/}
-          {/*      </Select>*/}
-          {/*    </FormControl>*/}
-          {/*  </Box>*/}
-          {/*</Grid>*/}
 
           <form onSubmit={handleSubmit}>
                 <Grid>
@@ -183,15 +172,18 @@ const newProfile = (props) => {
 newProfile.propTypes = {
   user: PropTypes.string,
   userId: PropTypes.string,
+  dateOfSubmission: PropTypes.string,
+  currentProfile: PropTypes.array,
   ready: PropTypes.bool.isRequired,
 };
 
 const newProfileContainer = withTracker(() => {
-  const subscription = Meteor.subscribe("Vaccine");
+  const subscription = Meteor.subscribe("UserProfile");
   return {
     user: Meteor.user() ? Meteor.user().username : "",
     userId: Meteor.userId(),
-    // currentVaccine: Meteor.user() ? Vaccines.find({ userId: Meteor.userId() }, {fields: {_id: 1}}).fetch() : [],
+    dateOfSubmission: Date(),
+    currentProfile: Meteor.user() ? UserProfiles.find({ userId: Meteor.userId() }, {fields: {_id: 1}}).fetch() : [],
     ready: subscription.ready(),
   };
 })(newProfile);

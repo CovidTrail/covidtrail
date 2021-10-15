@@ -9,6 +9,7 @@ const UserProfileSchema = new SimpleSchema({
   firstName: String,
   lastName: String,
   email: String,
+  dateOfSubmission: Date,
 }, { tracker : Tracker });
 
 UserProfiles.attachSchema(UserProfileSchema);
