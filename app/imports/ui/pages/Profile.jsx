@@ -15,16 +15,18 @@ import {
   TextField,
 } from "@material-ui/core";
 import { Link, withRouter } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { withTracker } from 'meteor/react-meteor-data';
+import { UserProfiles } from '../../api/user/UserProfile';
 import SimpleSchema from "simpl-schema";
 
 const profileStyle = makeStyles({
   container: {
+    width: "50%",
     display: "flex",
     flexDirection: "column",
-    maxWidth: "lg",
-    margin: "2.7em auto",
-    alignItems: "center",
-    border: 0,
+    marginTop: "3em",
+    marginBottom: "3em",
   },
   grid: {
     justifyContent: "center",
@@ -32,102 +34,101 @@ const profileStyle = makeStyles({
   title: {
     textAlign: "center",
     color: "primary",
-    margin: "35px 0",
+    marginTop: 10,
+    marginBottom: 10,
     fontWeight: "bold",
   },
-  textContent: {
-    margin: 4,
-    fontSize: "20px",
+  profInfo: {
+    backgroundColor: "#f1edee",
+    borderRadius: "1em",
+    padding: "2em 4em 3em 4em",
   },
-  input: {
-    "&::placeholder": {
-      fontSize: "18px",
-      // marginLeft: '3em',
-    },
-    height: "45px",
-    width: "25em",
-    border: "solid #FGFGFG",
-    borderRadius: "4px",
-    margin: "0 0 1em 0",
+  textContent: {
+    margin: 2,
+    fontSize: 20,
+    textAlign: "center",
   },
   button: {
-    margin: "1em",
-    width: "100px",
-    height: "45px",
+    "&:hover": {
+      backgroundColor: "#3f51b6",
+    },
+    textAlign: "center",
+    display: "flex",
+    height: "40px",
+    margin: "1em 1em 1em 0em",
+    borderRadius: "10px",
+    backgroundColor: "#3f51b5",
+    color: "White",
+  },
+  submitButton: {
+    "&:hover": {
+      backgroundColor: "#3f51b6",
+    },
+    margin: "1em 0 1em 0",
+    fontSize: "2em",
+    backgroundColor: "#3f51b5",
+    borderRadius: "10px",
+    color: "White",
   },
 });
 
-const Profile = (prop) => {
+const Profile = (props) => {
+  const { userTest } = props;
+  console.log(userTest);
+  const userLength = userTest.length;
+  var boolean = "";
+  if (userLength > 0 ) {
+    boolean = "Yes";
+  } else {
+    boolean = "No";
+  }
+  userTest.map( result => {
+    firstName = result.firstName;
+    lastName = result.lastName;
+    email = result.email;
+  })
   const classes = profileStyle();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-  const schema = new SimpleSchema({
-    // const
-  });
-  // const firstName = Meteor.users.findOne(this.userId).firstname;
-  return (
-    <Container className={classes.container}>
-      <Grid container className={classes.grid}>
-        <Grid item xs={12} className={classes.grid}>
-          <Typography className={classes.title} variant="h2" color="primary">
-            Profile
-          </Typography>
-        </Grid>
-        <form onSubmit={handleSubmit}>
-          <Grid>
-            <Grid item xs={12} className={classes.grid}>
-              <Typography className={classes.textContent}>
-                First Name
-              </Typography>
-              <Input
-                className={classes.input}
-                id="firstName"
-                name="firstName"
-                type="text"
-                placeholder="First Name"
-              ></Input>
-            </Grid>
-            <Grid item xs={12} className={classes.grid}>
-              <Typography className={classes.textContent}>Last Name</Typography>
-              <Input
-                className={classes.input}
-                id="lastName"
-                name="lastName"
-                type="text"
-                placeholder="Last Name"
-              ></Input>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography className={classes.textContent}>Email</Typography>
-              <Input
-                className={classes.input}
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Email"
-              ></Input>
-            </Grid>
-            <Grid item xs={12}>
-              <div style={{ textAlign: "right" }}>
-                <Button className={classes.button} href="/">
-                  Back
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                >
-                  Update
-                </Button>
-              </div>
-            </Grid>
-          </Grid>
-        </form>
-      </Grid>
-    </Container>
+    return (
+        <Container className={classes.container}>
+          { boolean === "Yes" ? (
+              <Grid container className={classes.grid}>
+                <Grid item xs={12} className={classes.grid}>
+                  <Typography className={classes.title} variant='h2' color='primary'>
+                    Profile
+                  </Typography>
+                </Grid>
+                <Grid className={classes.profInfo} container>
+                  <Grid item xs={12} className={classes.grid}>
+                    <Typography className={classes.textContent}>First Name: {firstName}</Typography>
+                    <Typography className={classes.textContent}>Last Name: {lastName} </Typography>
+                    <Typography className={classes.textContent}>Email: {email} </Typography>
+                  </Grid>
+                  <Grid item xs={6} className={classes.grid}>
+                    <Button className={classes.button} href="/">Home</Button>
+                  </Grid>
+                  <Grid item xs={6} className={classes.grid}>
+                    <Button className={classes.button} href="/newprofile">Resubmit Profile</Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+          ) : (
+              <Button className={classes.submitButton} href="/newProfile">Create Profile</Button>
+          )}
+        </Container>
   );
 };
 
-export default Profile;
+Profile.propTypes = {
+  userTest: PropTypes.array,
+  ready: PropTypes.bool.isRequired,
+}
+
+const ProfileContainer = withTracker(() => {
+  const subscription = Meteor.subscribe('UserProfile');
+  return {
+    userTest: UserProfiles.find().fetch(),
+    ready: subscription.ready(),
+  }
+})(Profile);
+
+export default withRouter(ProfileContainer);
