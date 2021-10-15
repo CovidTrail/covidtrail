@@ -13,11 +13,12 @@ import swal from "sweetalert";
 
 const useStyles = makeStyles({
   container: {
-    maxWidth: "lg",
     display: "flex",
     flexDirection: "column",
-    marginTop: "3em",
-    marginBottom: "3em",
+    maxWidth: "lg",
+    margin: "2.7em auto",
+    alignItems: "center",
+    border: 0,
   },
   grid: {
     justifyContent: "center",
@@ -25,26 +26,28 @@ const useStyles = makeStyles({
   title: {
     textAlign: "center",
     color: "primary",
-    marginTop: 10,
+    margin: "35px 0",
     fontWeight: "bold",
   },
   textContent: {
-    margin: 2,
-    fontSize: 25,
+    margin: 4,
+    fontSize: "20px",
   },
   input: {
     "&::placeholder": {
-      fontSize: 20,
-      paddingLeft: "1em",
+      fontSize: "18px",
+      // marginLeft: '3em',
     },
-    height: "3em",
-    width: "30em",
-    border: "solid black",
-    borderRadius: "1em",
+    height: "45px",
+    width: "25em",
+    border: "solid #FGFGFG",
+    borderRadius: "4px",
     margin: "0 0 1em 0",
   },
   button: {
-    margin: "1em 0 1em 0",
+    margin: "1em",
+    width: "100px",
+    height: "45px",
   },
   formControl: {
     minWidth: 200,

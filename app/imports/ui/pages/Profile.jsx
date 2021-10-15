@@ -22,12 +22,11 @@ import SimpleSchema from "simpl-schema";
 
 const profileStyle = makeStyles({
   container: {
+    width: "50%",
     display: "flex",
     flexDirection: "column",
-    maxWidth: "lg",
-    margin: "2.7em auto",
-    alignItems: "center",
-    border: 0,
+    marginTop: "3em",
+    marginBottom: "3em",
   },
   grid: {
     justifyContent: "center",
@@ -35,29 +34,41 @@ const profileStyle = makeStyles({
   title: {
     textAlign: "center",
     color: "primary",
-    margin: "35px 0",
+    marginTop: 10,
+    marginBottom: 10,
     fontWeight: "bold",
   },
   profInfo: {
-    boxShadow: '0px 0px 10px 0px',
-    borderRadius: '16px',
-    padding: '2em 8em 3em 8em',
+    backgroundColor: "#f1edee",
+    borderRadius: "1em",
+    padding: "2em 4em 3em 4em",
   },
   textContent: {
     margin: 2,
-    fontSize: 25,
+    fontSize: 20,
     textAlign: "center",
   },
   button: {
     "&:hover": {
-      backgroundColor: '#3f51b6',
+      backgroundColor: "#3f51b6",
     },
-    margin: '1em 1em 1em 1em ',
-    textAlign: 'center',
-    display: 'flex',
-    borderRadius: '10px',
-    backgroundColor: '#3f51b5',
-    color: 'White',
+    textAlign: "center",
+    display: "flex",
+    height: "40px",
+    margin: "1em 1em 1em 0em",
+    borderRadius: "10px",
+    backgroundColor: "#3f51b5",
+    color: "White",
+  },
+  submitButton: {
+    "&:hover": {
+      backgroundColor: "#3f51b6",
+    },
+    margin: "1em 0 1em 0",
+    fontSize: "2em",
+    backgroundColor: "#3f51b5",
+    borderRadius: "10px",
+    color: "White",
   },
 });
 
@@ -93,7 +104,7 @@ const Profile = (props) => {
                     <Typography className={classes.textContent}>Email: {email} </Typography>
                   </Grid>
                   <Grid item xs={6} className={classes.grid}>
-                      <Button className={classes.button} href="/">Back</Button>
+                    <Button className={classes.button} href="/">Home</Button>
                   </Grid>
                   <Grid item xs={6} className={classes.grid}>
                     <Button className={classes.button} href="/newprofile">Resubmit Profile</Button>
