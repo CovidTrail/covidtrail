@@ -25,3 +25,5 @@ accounts-base@2.0.1
 alanning:roles
 accounts-password@2.0.1
 aldeed:collection2
+cfs:standard-packages
+socialize:cloudinary
