@@ -24,16 +24,6 @@ const styles = makeStyles((theme) => ({
   spacer: {
     flexGrow: 1,
   },
-  logoHolder: {
-    // backgroundImage: URL("./Images/logo.jpg"),
-  backgroundImage: "url('/Images/logo.png')",/* The image used */
-  //backgroundColor: "#FF5733",
-  height: "100px", /* You must set a specified height */
-  width:"50px",
-  //backgroundPosition: center, /* Center the image */
-  //backgroundRepeat: no-repeat, /* Do not repeat the image */
-  //backgroundSize: cover, /* Resize the background image to cover the entire container */
-  },
 }));
 
 const Header = (props) => {
@@ -58,8 +48,8 @@ const Header = (props) => {
       <AppBar position="static">
         <Toolbar>
           <Button color="inherit" href="/" className={classes.title}>
-            <Typography variant="h6">CovidTrail</Typography>
-            <div className={classes.logoHolder}></div>
+            {/* <Typography variant="h6">CovidTrail</Typography> */}
+            <img src="https://i.ibb.co/hY8WYzB/logo.jpg" alt="logo" width="60px" height="50%"/>
           </Button>
           <Box className={classes.spacer}>
             <Button color="inherit" href="/Checkin">
