@@ -48,14 +48,17 @@ const Header = (props) => {
       <AppBar position="static">
         <Toolbar>
           <Button color="inherit" href="/" className={classes.title}>
-            <Typography variant="h6">CovidTrail</Typography>
+            {/* <Typography variant="h6">CovidTrail</Typography> */}
+            <img src="https://i.ibb.co/hY8WYzB/logo.jpg" alt="logo" width="60px" height="50%"/>
           </Button>
           <Box className={classes.spacer}>
             <Button color="inherit" href="/Checkin">
-              <Typography variant="h6">Checkin</Typography>
+              Checkins
+              {/* <Typography variant="subtitle1">Checkins</Typography> */}
             </Button>
             <Button color="inherit" href="/vaccination">
-              <Typography variant="h6">Vaccination</Typography>
+              Vaccination
+              {/* <Typography variant="subtitle1">Vaccination</Typography> */}
             </Button>
           </Box>
           <IconButton

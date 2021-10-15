@@ -11,13 +11,13 @@ import {
   InputLabel,
   Select,
   FormControl,
-  Input,
+  TextField,
+    Input,
 } from "@material-ui/core";
-import { useState } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import Image from "../../api/urlCollection/Image"
+import Image from "../../api/urlCollection/Image";
 
 import SimpleSchema from "simpl-schema";
 import swal from "sweetalert";
@@ -28,11 +28,15 @@ const useStyles = makeStyles({
     maxWidth: "lg",
     display: "flex",
     flexDirection: "column",
-    marginTop: "3em",
-    marginBottom: "3em",
+    padding:"3em",
+    // margin: "3em 0",
+  },
+  doseContainer: {
+    display: "flex",
+    flexDirection: "column",
   },
   grid: {
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   title: {
     textAlign: "center",
@@ -43,17 +47,22 @@ const useStyles = makeStyles({
   textContent: {
     margin: 2,
     fontSize: 25,
+    textAlign: "center",
+    width: "9em",
+    background: "#ADD8E6",
+    borderRadius: "0.2em",
   },
   input: {
     "&::placeholder": {
-      fontSize: 25,
       paddingLeft: "1em",
+      fontSize: 20,
+      // paddingLeft: "1em",
     },
     height: "3em",
-    width: "30em",
-    border: "solid black",
+    width: "12em",
+    // border: "solid black",
     borderRadius: "1em",
-    margin: "0 0 1em 0",
+    margin: "1em",
   },
   inputImage: {
     height: "3em",
@@ -64,7 +73,7 @@ const useStyles = makeStyles({
 
   },
   button: {
-    margin: "1em 0 1em 0",
+    margin: "0 0",
   },
   formControl: {
     minWidth: 200,
@@ -142,12 +151,13 @@ const SubmitVaccination = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     currentVaccine.map((x) => {
       Vaccines.remove({ _id: x._id });
     });
 
+
     Vaccines.insert(
+
         {
           userId,
           vaccineName,
@@ -181,6 +191,7 @@ const SubmitVaccination = (props) => {
   // });
   // const firstName = Meteor.users.findOne(this.userId).firstname;
   return (
+
       <Container className={classes.container}>
         <Grid container className={classes.grid}>
           <Grid item xs={12} className={classes.grid}>
