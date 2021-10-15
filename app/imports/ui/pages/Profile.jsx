@@ -10,7 +10,7 @@ import { UserProfiles } from '../../api/user/UserProfile';
 
 const profileStyle = makeStyles({
   container: {
-    maxWidth: 'lg',
+    width: '50%',
     display: 'flex',
     flexDirection: 'column',
     marginTop: '3em',
@@ -23,25 +23,29 @@ const profileStyle = makeStyles({
     textAlign: 'center',
     color: 'primary',
     marginTop: 10,
+    marginBottom: 10,
     fontWeight: 'bold',
+  },
+  profInfo: {
+    boxShadow: '0px 0px 10px 0px',
+    borderRadius: '16px',
+    padding: '2em 8em 3em 8em',
   },
   textContent: {
     margin: 2,
     fontSize: 25,
-  },
-  input: {
-    "&::placeholder": {
-      fontSize: 20,
-      paddingLeft: '1em',
-    },
-    height: '3em',
-    width: '30em',
-    border: 'solid black',
-    borderRadius: '1em',
-    margin: '0 0 1em 0',
+    textAlign: "center",
   },
   button: {
-    margin: '1em 0 1em 0',
+    "&:hover": {
+      backgroundColor: '#3f51b6',
+    },
+    margin: '1em 1em 1em 1em ',
+    textAlign: 'center',
+    display: 'flex',
+    borderRadius: '10px',
+    backgroundColor: '#3f51b5',
+    color: 'White',
   },
 });
 
@@ -64,31 +68,26 @@ const Profile = (props) => {
     return (
         <Container className={classes.container}>
           { boolean === "Yes" ? (
-          <Grid container className={classes.grid}>
-            <Grid item xs={12} className={classes.grid}>
-              <Typography className={classes.title} variant='h2' color='primary'>
-                Profile
-              </Typography>
-            </Grid>
-              <Grid>
+              <Grid container className={classes.grid}>
+                <Grid item xs={12} className={classes.grid}>
+                  <Typography className={classes.title} variant='h2' color='primary'>
+                    Profile
+                  </Typography>
+                </Grid>
+                <Grid className={classes.profInfo} container>
                   <Grid item xs={12} className={classes.grid}>
-                    <Typography className={classes.textContent}>First Name</Typography>
-                    <input className={classes.input} id="firstName" name="firstName" type="text" value={firstName}></input>
+                    <Typography className={classes.textContent}>First Name: {firstName}</Typography>
+                    <Typography className={classes.textContent}>Last Name: {lastName} </Typography>
+                    <Typography className={classes.textContent}>Email: {email} </Typography>
                   </Grid>
-                  <Grid item xs={12} className={classes.grid}>
-                    <Typography className={classes.textContent}>Last Name</Typography>
-                    <input className={classes.input} id="lastName" name="lastName" type="text" placeholder="Last Name"></input>
+                  <Grid item xs={6} className={classes.grid}>
+                      <Button className={classes.button} href="/">Back</Button>
                   </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.textContent}>Email</Typography>
-                    <input className={classes.input} id="email" name="email" type="email" placeholder="Email"></input>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button className={classes.button} href="/">Back</Button>
-                    <Button type="submit" variant="contained" color="primary" className={classes.button}>Update</Button>
+                  <Grid item xs={6} className={classes.grid}>
+                    <Button className={classes.button} href="/newprofile">Resubmit Profile</Button>
                   </Grid>
                 </Grid>
-            </Grid>
+              </Grid>
           ) : (
               <Button className={classes.submitButton} href="/newProfile">Create Profile</Button>
           )}
