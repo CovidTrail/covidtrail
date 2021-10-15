@@ -269,6 +269,7 @@ const SubmitVaccination = (props) => {
                         onClick={(e) => openImage(e)}
                     > </Input>
                   </Grid>
+                  
                 </Grid>
             ) : (
                 <Grid>
